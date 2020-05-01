@@ -28,20 +28,28 @@ public class HomeController {
     UserService userService;
 
     // 結婚ステータスのラジオボタン用変数
-    private Map<String, String> radioMarriage;
+    private Map<String, String> radioLicense;
+    private Map<String, String> radioSex;
 
     /**
      * ラジオボタンの初期化メソッド（ユーザー登録画面と同じ）.
      */
-    private Map<String, String> initRadioMarrige() {
+    private Map<String, String> initRadioLicense() {
 
         Map<String, String> radio = new LinkedHashMap<>();
 
         // 既婚、未婚をMapに格納
-        radio.put("既婚", "true");
-        radio.put("未婚", "false");
+        radio.put("有", "true");
+        radio.put("無", "false");
 
         return radio;
+    }
+    
+    private Map<String, String> initRadioSex() {
+        Map<String, String> sex = new LinkedHashMap<>();
+        sex.put("男", "true");
+        sex.put("女", "false");
+        return sex;
     }
 
     /**
@@ -93,10 +101,12 @@ public class HomeController {
         model.addAttribute("contents", "login/userDetail :: userDetail_contents");
 
         // 結婚ステータス用ラジオボタンの初期化
-        radioMarriage = initRadioMarrige();
+        radioLicense = initRadioLicense();
+        radioSex = initRadioSex();
 
         // ラジオボタン用のMapをModelに登録
-        model.addAttribute("radioMarriage", radioMarriage);
+        model.addAttribute("radioLicense", radioLicense);
+        model.addAttribute("radioSex", radioSex);
 
         // ユーザーIDのチェック
         if (userId != null && userId.length() > 0) {
