@@ -30,22 +30,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // ユーザーIDとパスワードを取得するSQL文
     private static final String USER_SQL = "SELECT"
-            + "    user_id,"
+            + "    mail_address,"
             + "    password,"
             + "    true"
             + " FROM"
-            + "    m_user"
+            + "    users"
             + " WHERE"
-            + "    user_id = ?";
+            + "    mail_address = ?";
 
     // ユーザーのロールを取得するSQL文
     private static final String ROLE_SQL = "SELECT"
-            + "    user_id,"
+            + "    mail_address,"
             + "    role"
             + " FROM"
-            + "    m_user"
+            + "    users"
             + " WHERE"
-            + "    user_id = ?";
+            + "    mail_address = ?";
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login") //ログイン処理のパス
                 .loginPage("/login") //ログインページの指定
                 .failureUrl("/login") //ログイン失敗時の遷移先
-                .usernameParameter("userId") //ログインページのユーザーID
+                .usernameParameter("mailAddress") //ログインページのユーザーID
                 .passwordParameter("password") //ログインページのパスワード
                 .defaultSuccessUrl("/home", true); //ログイン成功後の遷移先
 

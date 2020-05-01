@@ -67,21 +67,21 @@ public class HomeController {
     /**
      * ユーザー一覧画面のGETメソッド用処理.
      */
-    @GetMapping("/userList")
-    public String getUserList(Model model) {
+    @GetMapping("/myPage")
+    public String getMyPage(Model model) {
 
         //コンテンツ部分にユーザー一覧を表示するための文字列を登録
-        model.addAttribute("contents", "login/userList :: userList_contents");
+        model.addAttribute("contents", "login/myPage :: myPage_contents");
 
         //ユーザー一覧の生成
-        List<User> userList = userService.selectMany();
+        List<User> myPage = userService.selectMany();
 
         //Modelにユーザーリストを登録
-        model.addAttribute("userList", userList);
+        model.addAttribute("myPage", myPage);
 
         //データ件数を取得
         int count = userService.count();
-        model.addAttribute("userListCount", count);
+        model.addAttribute("myPageCount", count);
 
         return "login/homeLayout";
     }
@@ -167,7 +167,7 @@ public class HomeController {
         }
 
         //ユーザー一覧画面を表示
-        return getUserList(model);
+        return getMyPage(model);
     }
 
     /**
@@ -193,7 +193,7 @@ public class HomeController {
         }
 
         //ユーザー一覧画面を表示
-        return getUserList(model);
+        return getMyPage(model);
     }
 
     /**
@@ -209,8 +209,8 @@ public class HomeController {
     /**
      * ユーザー一覧のCSV出力用処理.
      */
-    @GetMapping("/userList/csv")
-    public ResponseEntity<byte[]> getUserListCsv(Model model) {
+    @GetMapping("/myPage/csv")
+    public ResponseEntity<byte[]> getMyPageCsv(Model model) {
 
         //ユーザーを全件取得して、CSVをサーバーに保存する
         userService.userCsvOut();
