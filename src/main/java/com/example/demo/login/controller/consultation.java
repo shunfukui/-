@@ -34,6 +34,7 @@ public class consultation {
 			model.addAttribute("title", "項目にエラーがあります");
 			return "login/consultation";
 		}
+		model.addAttribute(attributeName, attributeValue)
 		
 		redirectAttributes.addFlashAttribute("complete", "投稿完了");
 		return "redirect:/login/home";
