@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}">相談画面</title>
+</head>
+<body>
+<h1 th:text="${title}">相談画面</h1>
+
+
+
+<form method="post" action="#" th:action="@{/login/home}" th:object="${consultationForm}">
+	<label for="name">相談題名</label>
+	<input id="title" name="title" type="text" th:value="*{title}" ><br>
+	<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+	<label for="content">相談詳細　:</label>
+	<textarea name="content" id="content" rows="3" cols="40" th:field="*{content}"></textarea><br>
+	<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+	<input type="submit" value="投稿する">
+	
+</form>
+</body>
+</html>
