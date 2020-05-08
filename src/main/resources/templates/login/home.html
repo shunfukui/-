@@ -9,24 +9,26 @@
     <div th:fragment="home_contents">
         <div class="page-header">
             <h1>ホーム</h1>
-            <h1>ああああああ</h1>
-            
-            
-            
+           
+              
         </div>
         	<h2 th:text="${complete}"></h2>
         	<a th:href="@{'/consultation'}">相談する</a><br>
         	
-        	<form>
         	
-        	</form>
-             <!-- <table class="table table-bordered table-hover table-striped">
-             <tr th:each="userConsultation : ${consultation}">
-            <td th:text="${userConsultation.title}"></td>
-            <td th:text="${userConsultation.content}></td>
-            
-            </tr>
-            </table> -->
+        	<form method="post" th:action="@{login/home}" th:object="${consultationForm}">
+        	<table>
+				<tr>
+					<th>タイトル</th>
+				</tr>
+				<tr th:each="ConsultationController : ${UserConsultationList}">
+				
+					<td th:text="${userConsultation.title}"></td>
+
+				</tr>
+			</table>
+			</form>
+             
     </div>
 </body>
 </html>

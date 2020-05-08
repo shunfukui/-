@@ -4,20 +4,19 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
-import com.example.demo.login.domain.model.User;
+
+import com.example.demo.login.domain.model.UserConsultation;
 
 public interface UserConsultationDao {
 	
 	
-    // consultationsテーブルにデータを1件insert.
-    public (Consultations consultations) throws DataAccessException;
-
-    // consultationsテーブルのデータを１件取得
-    public consultations selectOne(String title) throws DataAccessException;
+	// consultationテーブルの全データを取得.
+    public int insertOne(UserConsultation userConsultation) throws DataAccessException;
+    
+   
+	
+	List<UserConsultation> gettAll();
     
     
     
-    
-    //カラムは全部受け取る、JDBCに絞り込みはさせる
-
 }

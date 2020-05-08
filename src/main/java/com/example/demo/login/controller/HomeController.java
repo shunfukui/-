@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.login.domain.model.SignupForm;
 import com.example.demo.login.domain.model.User;
+import com.example.demo.login.domain.model.UserConsultation;
+import com.example.demo.login.domain.service.UserConsultationService;
 import com.example.demo.login.domain.service.UserService;
 
 @Controller
@@ -26,6 +28,10 @@ public class HomeController {
 
     @Autowired
     UserService userService;
+
+    
+    
+    
 
     // 結婚ステータスのラジオボタン用変数
     private Map<String, String> radioLicense;
