@@ -61,9 +61,9 @@ public class UserService {
     /**
      * １件取得用メソッド.
      */
-    public User selectOne(String userId) {
+    public User selectOne(String userName) {
         // selectOne実行
-        return dao.selectOne(userId);
+        return dao.selectOne(userName);
     }
 
     /**
@@ -88,10 +88,10 @@ public class UserService {
     /**
      * １件削除用メソッド.
      */
-    public boolean deleteOne(String userId) {
+    public boolean deleteOne(String userName) {
 
         // １件削除
-        int rowNumber = dao.deleteOne(userId);
+        int rowNumber = dao.deleteOne(userName);
 
         // 判定用変数
         boolean result = false;

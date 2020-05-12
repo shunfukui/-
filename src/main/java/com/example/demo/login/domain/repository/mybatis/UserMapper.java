@@ -12,60 +12,61 @@ import com.example.demo.login.domain.model.User;
 
 @Mapper
 public interface UserMapper {
+	
 
     // 登録用メソッド
-    @Insert("INSERT INTO m_user ("
-            + " user_id,"
-            + " password,"
+    @Insert("INSERT INTO users ("
             + " user_name,"
-            + " birthday,"
+            + " sex,"
             + " age,"
-            + " marriage,"
+            + " mailaddress,"
+            + " password,"
+            + " license,"
             + " role)"
             + " VALUES ("
-            + " #{userId},"
-            + " #{password},"
             + " #{userName},"
-            + " #{birthday},"
+            + " #{sex},"
             + " #{age},"
-            + " #{marriage},"
+            + " #{mailaddress},"
+            + " #{password},"
+            + " #{license},"
             + " #{role})")
     public boolean insert(User user);
 
     // １件検索用メソッド
-    @Select("SELECT user_id AS userId,"
+    @Select("SELECT user_name AS userName,"
             + "password,"
-            + "user_name AS userName,"
-            + "birthday,"
+            + "sex,"
+            + "mailaddress,"
             + "age,"
-            + "marriage,"
+            + "license,"
             + "role"
-            + " FROM m_user"
-            + " WHERE user_id = #{userId}")
-    public User selectOne(String userId);
+            + " FROM users"
+            + " WHERE user_name = #{userName}")
+    public User selectOne(String userName);
 
     // 全件検索用メソッド
-    @Select("SELECT user_id AS userId,"
+    @Select("SELECT user_name AS userName,"
             + "password,"
-            + "user_name AS userName,"
-            + "birthday,"
+            + "sex,"
+            + "mailaddress,"
             + "age,"
-            + "marriage,"
+            + "license,"
             + "role"
-            + " FROM m_user")
+            + " FROM users")
     public List<User> selectMany();
 
     // １件更新用メソッド
-    @Update("UPDATE m_user SET"
+    @Update("UPDATE users SET"
             + " password = #{password},"
             + " user_name = #{userName},"
-            + " birthday = #{birthday},"
+            + " license = #{license},"
             + " age = #{age},"
-            + " marriage = #{marriage}"
-            + " WHERE user_id = #{userId}")
+            + " sex = #{sex}"
+            + " WHERE user_name = #{userName}")
     public boolean updateOne(User user);
 
     // １件削除用メソッド
-    @Delete("DELETE FROM m_user WHERE user_id = #{userId}")
-    public boolean deleteOne(String userId);
+    @Delete("DELETE FROM users WHERE user_name = #{userName}")
+    public boolean deleteOne(String userName);
 }

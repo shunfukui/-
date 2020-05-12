@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+
 import com.example.demo.login.domain.model.UserConsultation;
 import com.example.demo.login.domain.repository.UserConsultationDao;
 
@@ -21,14 +22,25 @@ public class UserConsultationDaoJdbcImpl implements UserConsultationDao {
 	@Autowired
 	JdbcTemplate jdbc;
 	
-	//consultationsテーブルにデータを1件insert.
-	@Override
-	public int insertOne(UserConsultation userConsultation) throws DataAccessException{
-		return 0;}
+
+	// テーブルにデータを1件insert.
+    @Override
+    public int insertOne(UserConsultation userConsultation) throws DataAccessException{
+
+
+        //１件登録
+        int rowNumber = jdbc.update("INSERT INTO consultations("
+        		+ " title,"
+        		+ "content)"
+                + " VALUES(?, ?)",
+                userConsultation.getTitle(),
+                userConsultation.getContent());
+
+        return rowNumber;
+    }
 	
-	
-	
-	public List<UserConsultation> gettAll() {
+    @Override
+    public List<UserConsultation> getAll() {
 		String sql = "SELECT title,content FROM consultations";
 				List<Map<String,Object>> resultList = jdbc.queryForList(sql);
 				List<UserConsultation> list = new ArrayList<UserConsultation>();
@@ -37,7 +49,15 @@ public class UserConsultationDaoJdbcImpl implements UserConsultationDao {
 					userConsultation.setTitle((String)result.get("title"));;
 					userConsultation.setContent((String)result.get("content"));;
 					list.add(userConsultation);
+					
+					System.out.println(result.get("title"));
 				}	
+
 				return list;
 				}
+
+
+
 }
+
+

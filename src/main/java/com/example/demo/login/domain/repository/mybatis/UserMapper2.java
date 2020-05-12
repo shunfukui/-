@@ -16,7 +16,7 @@ public interface UserMapper2 {
     public int count();
 
     // １件検索用メソッド
-    public User selectOne(String userId);
+    public User selectOne(String userName);
 
     // 全件検索用メソッド
     public List<User> selectMany();

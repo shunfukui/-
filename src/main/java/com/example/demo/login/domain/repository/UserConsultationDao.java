@@ -13,9 +13,11 @@ public interface UserConsultationDao {
 	// consultationテーブルの全データを取得.
     public int insertOne(UserConsultation userConsultation) throws DataAccessException;
     
-   
-	
-	List<UserConsultation> gettAll();
+  
+
+
+
+	List<UserConsultation> getAll();
     
     
     

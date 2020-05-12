@@ -39,7 +39,7 @@ public class UserConsultationService {
     
     
     public List<UserConsultation> getAll() {
-		return dao.gettAll();
+		return dao.getAll();
 	}
 	
 	

@@ -28,7 +28,8 @@ public class HomeController {
 
     @Autowired
     UserService userService;
-
+    @Autowired
+    UserConsultationService userConsultationService;
     
     
     
@@ -63,11 +64,18 @@ public class HomeController {
      */
     @GetMapping("/home")
     public String getHome(Model model) {
+    	
+    	List<UserConsultation> list = userConsultationService.getAll();
 
+		model.addAttribute("consultationsList", list);
+		model.addAttribute("title", "home");
+		
+		
         //コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "login/home :: home_contents");
 
         return "login/homeLayout";
+        
     }
 
     /**
@@ -95,13 +103,13 @@ public class HomeController {
     /**
      * ユーザー詳細画面のGETメソッド用処理.
      */
-    @GetMapping("/userDetail/{id:.+}")
+    @GetMapping("/userDetail/{name}")
     public String getUserDetail(@ModelAttribute SignupForm form,
             Model model,
-            @PathVariable("id") String userId) {
+            @PathVariable("name") String userName) {
 
         // ユーザーID確認（デバッグ）
-        System.out.println("userId = " + userId);
+        System.out.println("userName = " + userName);
 
         // コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "login/userDetail :: userDetail_contents");
@@ -115,10 +123,10 @@ public class HomeController {
         model.addAttribute("radioSex", radioSex);
 
         // ユーザーIDのチェック
-        if (userId != null && userId.length() > 0) {
+        if (userName != null && userName.length() > 0) {
 
             // ユーザー情報を取得
-            User user = userService.selectOne(userId);
+            User user = userService.selectOne(userName);
 
             // Userクラスをフォームクラスに変換
             form.setUserName(user.getUserName()); //ユーザー名
@@ -156,7 +164,6 @@ public class HomeController {
         form.setLicense(user.isLicense()); //資格有無
 
         try {
-
             //更新実行
             boolean result = userService.updateOne(user);
 
@@ -169,7 +176,6 @@ public class HomeController {
         } catch(DataAccessException e) {
 
             model.addAttribute("result", "更新失敗(トランザクションテスト)");
-
         }
 
         //ユーザー一覧画面を表示

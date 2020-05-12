@@ -1,7 +1,5 @@
 package com.example.demo.login.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +20,7 @@ import com.example.demo.login.domain.service.UserConsultationService;
 
 public class ConsultationController {
 	
-private final UserConsultationService userConsultationService;
+UserConsultationService userConsultationService;
 
 
 
@@ -33,16 +31,16 @@ private final UserConsultationService userConsultationService;
 		this.userConsultationService = userConsultationService;
 	}
 	
-	@GetMapping
-	public String consultations(Model model) {
-		List<UserConsultation> list = userConsultationService.getAll();
-		
-		
-		model.addAttribute("consultationsList", list);
-		model.addAttribute("title", "home");
-		
-		return "login/home";
-	}
+//	@GetMapping("/gohome")
+//	public String consultations(Model model) {
+//		List<UserConsultation> list = userConsultationService.getAll();
+//
+//		model.addAttribute("consultationsList", list);
+//		model.addAttribute("title", "home");
+//		
+//		
+//		return "login/home";
+//	}
 
 	
 	@GetMapping("/consultation")
@@ -57,16 +55,21 @@ private final UserConsultationService userConsultationService;
 	public String consultation(@Validated ConsultationForm consultationForm,
 			BindingResult result,
 			Model model,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes,
+			@ModelAttribute("userConsultation") UserConsultation form
+			) {
+
 		if(result.hasErrors()) {
 			model.addAttribute("title", "consultation");
 			return "login/consultation";
 		}
-		
+		boolean userConsultation  = userConsultationService.insert(form);
+		 model.addAttribute("registration", "相談内容登録");
+		 
+		 
 		
 		redirectAttributes.addFlashAttribute("complete", "投稿完了");
-		return "redirect:/login/home";
-	
+		return "redirect:/home";
 	}
 
 }

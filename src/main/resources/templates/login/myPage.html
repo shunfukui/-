@@ -27,17 +27,15 @@
                 <td th:text="${user.license} ? '有' : '無'"></td>
                 <td>
                     <!-- ユーザー詳細画面へのリンク -->
-                    <a class="btn btn-primary" th:href="@{'/userDetail/' + ${user.mailAddress}}">
-                        詳細
-                    </a>
+                    <a class="btn btn-primary" th:href="@{'/userDetail'}">修正</a>
                 </td>
             </tr>
         </table>
         
         <!-- 更新・削除処理の結果表示用 -->
         <label class="text-info" th:text="${result}">結果表示</label><br/>
-        <!-- CSV出力用のリンク -->
-        <a class="btn btn-primary" th:href="@{'/userList/csv'}">CSV出力</a>
+       
+        <a class="btn btn-primary" th:href="@{'/home'}">戻る</a>
     </div>
 </body>
 </html>
