@@ -27,7 +27,7 @@
                 <td th:text="${user.license} ? '有' : '無'"></td>
                 <td>
                     <!-- ユーザー詳細画面へのリンク -->
-                    <a class="btn btn-primary" th:href="@{'/userDetail'}">修正</a>
+                    <a class="btn btn-primary" th:href="@{/userDetail/{userName}(userName=${user.userName})}">修正</a>
                 </td>
             </tr>
         </table>

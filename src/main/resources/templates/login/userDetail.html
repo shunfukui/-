@@ -11,16 +11,79 @@
                 <div class="page-header">
                     <h1>ユーザー詳細</h1>
                 </div>
-                <form method="post" th:action="@{/userDetail}" th:object="${signupForm}">
+                <form method="get" th:action="@{/userDetail/aaa}" th:object="${signupForm}">
                     <table class="table table-bordered table-hover">
+                       
+                        
                         <tr>
-                            <!-- ユーザーID（入力不可） -->
-                            <th class="active col-sm-2">ユーザID</th>
-                            <td class="col-sm-3">
-                                <div class="form-group">
+                            <!-- ユーザー名 -->
+                            <th class="active">ユーザ名</th>
+                            <td>
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('userName')} ? 'has-error'">
                                     <input type="text" class="form-control"
-                                        th:field="*{userName}"
-                                        readonly="readonly" />
+                                        th:field="*{userName}" />
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('userName')}"
+                                        th:errors="*{userName}">
+                                        userName error
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <!-- 結婚 -->
+                            <th class="active">性別</th>
+                            <td>
+                                <div class="form-group">
+                                    <div th:each="item : ${radioSex}">
+                                        <input type="radio" name="radioSex"
+                                            th:value="${item.value}"
+                                            th:text="${item.key}"
+                                            th:field="*{sex}">
+                                    </div>
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('sex')}"
+                                        th:errors="*{sex}">
+                                        license error
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                       
+                        <tr>
+                           
+                        </tr>
+                        <tr>
+                            <!-- 年齢 -->
+                            <th class="active">年齢</th>
+                            <td>
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('age')} ? 'has-error'">
+                                    <input type="text" class="form-control"
+                                        th:field="*{age}" />
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('age')}"
+                                        th:errors="*{age}">
+                                        age error
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <!-- メールアドレス -->
+                            <th class="active">メールアドレス</th>
+                            <td>
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('mailAddress')} ? 'has-error'">
+                                    <input type="text" class="form-control"
+                                        th:field="*{mailAddress}" />
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('mailAddress')}"
+                                        th:errors="*{mailAddress}">
+                                        age error
+                                    </span>
                                 </div>
                             </td>
                         </tr>
@@ -41,69 +104,20 @@
                             </td>
                         </tr>
                         <tr>
-                            <!-- ユーザー名 -->
-                            <th class="active">ユーザ名</th>
-                            <td>
-                                <div class="form-group"
-                                    th:classappend="${#fields.hasErrors('userName')} ? 'has-error'">
-                                    <input type="text" class="form-control"
-                                        th:field="*{userName}" />
-                                    <span class="text-danger"
-                                        th:if="${#fields.hasErrors('userName')}"
-                                        th:errors="*{userName}">
-                                        userName error
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <!-- 誕生日 -->
-                            <th class="active">誕生日</th>
-                            <td>
-                                <div class="form-group"
-                                    th:classappend="${#fields.hasErrors('birthday')} ? 'has-error'">
-                                    <input type="text" class="form-control"
-                                        placeholder="yyyy/MM/dd"
-                                        th:field="*{birthday}" />
-                                    <span class="text-danger"
-                                        th:if="${#fields.hasErrors('birthday')}"
-                                        th:errors="*{birthday}">
-                                        birthday error
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <!-- 年齢 -->
-                            <th class="active">年齢</th>
-                            <td>
-                                <div class="form-group"
-                                    th:classappend="${#fields.hasErrors('age')} ? 'has-error'">
-                                    <input type="text" class="form-control"
-                                        th:field="*{age}" />
-                                    <span class="text-danger"
-                                        th:if="${#fields.hasErrors('age')}"
-                                        th:errors="*{age}">
-                                        age error
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
                             <!-- 結婚 -->
-                            <th class="active">結婚</th>
+                            <th class="active">資格</th>
                             <td>
                                 <div class="form-group">
-                                    <div th:each="item : ${radioMarriage}">
-                                        <input type="radio" name="radioMarrige"
+                                    <div th:each="item : ${radioLicense}">
+                                        <input type="radio" name="radioLicense"
                                             th:value="${item.value}"
                                             th:text="${item.key}"
-                                            th:field="*{marriage}">
+                                            th:field="*{license}">
                                     </div>
                                     <span class="text-danger"
-                                        th:if="${#fields.hasErrors('marriage')}"
-                                        th:errors="*{marriage}">
-                                        marriage error
+                                        th:if="${#fields.hasErrors('license')}"
+                                        th:errors="*{license}">
+                                        license error
                                     </span>
                                 </div>
                             </td>

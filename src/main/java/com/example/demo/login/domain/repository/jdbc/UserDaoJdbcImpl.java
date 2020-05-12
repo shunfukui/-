@@ -63,11 +63,11 @@ public class UserDaoJdbcImpl implements UserDao {
 
     // Userテーブルのデータを１件取得
     @Override
-    public User selectOne(String mailAddress) throws DataAccessException {
+    public User selectOne(String userName) throws DataAccessException {
 
         // １件取得
         Map<String, Object> map = jdbc.queryForMap("SELECT * FROM users"
-                + " WHERE mail_address = ?", mailAddress);
+                + " WHERE user_name = '"+userName+"'");
 
         // 結果返却用の変数
         User user = new User();
