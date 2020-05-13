@@ -124,20 +124,21 @@ public class UserDaoJdbcImpl implements UserDao {
         String password = passwordEncoder.encode(user.getPassword());
 
         //１件更新
-        int rowNumber = jdbc.update("UPDATE USES"
+        int rowNumber = jdbc.update("UPDATE USERS"
                 + " SET"
-                + " user_name = ?,"
                 + " sex = ?,"
                 + " age = ?,"
                 + " password = ?,"
+                + " mail_address = ?,"
                 + " license = ?"
-                + " WHERE mail_address = ?",
-                password,
-                user.getUserName(),
+                + " WHERE user_name = ?",
                 user.isSex(),
                 user.getAge(),
+                password,
+                user.getMailAddress(),
                 user.isLicense(),
-                user.getMailAddress());
+                user.getUserName());
+                
 
         //トランザクション確認のため、わざと例外をthrowする
         //        if (rowNumber > 0) {
@@ -150,10 +151,10 @@ public class UserDaoJdbcImpl implements UserDao {
 
     // Userテーブルを１件削除.
     @Override
-    public int deleteOne(String mailAddress) throws DataAccessException {
+    public int deleteOne(String userName) throws DataAccessException {
 
         //１件削除
-        int rowNumber = jdbc.update("DELETE FROM users WHERmail_address = ?", mailAddress);
+        int rowNumber = jdbc.update("DELETE FROM users WHERE user_name = ?", userName);
 
         return rowNumber;
     }

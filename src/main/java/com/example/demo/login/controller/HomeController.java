@@ -89,7 +89,7 @@ public class HomeController {
 
         //ユーザー一覧の生成
         List<User> myPage = userService.selectMany();
-
+        
         //Modelにユーザーリストを登録
         model.addAttribute("myPage", myPage);
 
@@ -156,23 +156,20 @@ public class HomeController {
         User user = new User();
 
         //フォームクラスをUserクラスに変換
-        form.setUserName(user.getUserName()); //ユーザー名
-        form.setSex(user.isSex()); //性別
-        form.setAge(user.getAge()); //年齢
-        form.setMailAddress(user.getMailAddress()); //メールアドレス
-        form.setPassword(user.getPassword()); //パスワード
-        form.setLicense(user.isLicense()); //資格有無
+        user.setUserName(form.getUserName()); //ユーザー名
+        user.setSex(form.isSex()); //性別
+        user.setAge(form.getAge()); //年齢
+        user.setMailAddress(form.getMailAddress()); //メールアドレス
+        user.setPassword(form.getPassword()); //パスワード
+        user.setLicense(form.isLicense()); //資格有無
 
         try {
             //更新実行
             boolean result = userService.updateOne(user);
 
-            if (result == true) {
-                model.addAttribute("result", "更新成功");
-            } else {
-                model.addAttribute("result", "更新失敗");
-            }
-
+           
+            model.addAttribute("result", "更新成功");
+           
         } catch(DataAccessException e) {
 
             model.addAttribute("result", "更新失敗(トランザクションテスト)");
@@ -192,7 +189,7 @@ public class HomeController {
         System.out.println("削除ボタンの処理");
 
         //削除実行
-        boolean result = userService.deleteOne(form.getMailAddress());
+        boolean result = userService.deleteOne(form.getUserName());
 
         if (result == true) {
 
