@@ -18,6 +18,15 @@
 				<td th:text="${consultation.content}"></td>	
 				</tr>
 			</table>   
+			
+			<table>
+				<tr>
+					<th>回答</th>
+				</tr>
+				<tr th:each=" answer: ${AnswerList}">
+				<td th:text="${answer.content}"></td>	
+				</tr>
+			</table>   
 
 			
 	<form method="post" action="#" th:action="@{/answer}" th:object="${answerForm}">
