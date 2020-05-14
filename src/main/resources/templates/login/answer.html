@@ -7,6 +7,27 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h1>回答画面</h1>	
+			<table>
+				<tr>
+					<th>タイトル</th>
+					<th>相談内容</th>
+				</tr>
+				<tr th:each=" consultation: ${consultationsList}">
+				<td th:text="${consultation.title}"></td>	
+				<td th:text="${consultation.content}"></td>	
+				</tr>
+			</table>   
+
+			
+	<form method="post" action="#" th:action="@{/answer}" th:object="${answerForm}">
+		<label for="content">回答　:</label>
+		<textarea name="content" id="content" rows="3" cols="40" th:field="*{content}"></textarea><br>
+		<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+		<input type="submit" value="投稿する">
+	
+	</form>
+			 <a class="btn btn-primary" th:href="@{'/home'}">戻る</a>
 
 </body>
 </html>

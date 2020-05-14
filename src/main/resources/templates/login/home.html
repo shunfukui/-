@@ -11,16 +11,15 @@
             <h1>ホーム</h1> 
         </div>
         	<h2 th:text="${complete}"></h2>
-        	<a th:href="@{'/consultation'}">相談する</a><br>
+        	<a class="btn btn-danger" th:href="@{'/consultation'}">相談する</a><br>
         	<table>
 				<tr>
-					<th>タイトル</th>
+					
+					<h2>相談一覧</h2>
 				</tr>
 				<tr th:each=" consultation: ${consultationsList}">
-				
-					<td th:text="${consultation.title}"></td>
-					
-					
+					<a class="btn btn-danger" th:href="@{'/answer'}" th:text="${consultation.title}"></a>
+					<br>				
 				</tr>
 			</table>   
 			
