@@ -13,8 +13,8 @@
 					<th>タイトル</th>
 					<th>相談内容</th>
 				</tr>
-				<tr th:each=" consultation: ${consultationsList}">
-				<td th:text="${consultation.title}"></td>	
+				<tr th:each=" consultation: ${ConsultationList}">
+				<td th:text="${consultation.title}"></td>
 				<td th:text="${consultation.content}"></td>	
 				</tr>
 			</table>   

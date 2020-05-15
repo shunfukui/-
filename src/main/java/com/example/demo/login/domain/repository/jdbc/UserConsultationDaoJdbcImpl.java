@@ -22,6 +22,23 @@ public class UserConsultationDaoJdbcImpl implements UserConsultationDao {
 	@Autowired
 	JdbcTemplate jdbc;
 	
+	
+	// Userテーブルの件数を取得.
+    @Override
+    public int count(UserConsultation userConsultation) throws DataAccessException {
+
+        // 全件取得してカウント
+        int count = jdbc.queryForObject("SELECT COUNT(*) FROM consultations WHERE "
+        		+ " title = '"+userConsultation.getTitle()+"' AND "
+        		+ "content = '"+userConsultation.getContent()+"'",
+                
+                
+                
+         Integer.class);
+
+        return count;
+    }
+	
 
 	// テーブルにデータを1件insert.
     @Override
@@ -56,8 +73,24 @@ public class UserConsultationDaoJdbcImpl implements UserConsultationDao {
 				return list;
 				}
 
+	@Override
+	public UserConsultation getOne(UserConsultation userconsultation) {
+		String sql = "SELECT title,content FROM consultations";
+				
 
+		Map<String,Object> result = jdbc.queryForMap(sql);
+		
+			
+		//SQLから取ってきた値を型変換
+			UserConsultation userConsultation = new UserConsultation();
+			userConsultation.setTitle((String)result.get("title"));;
+			userConsultation.setContent((String)result.get("content"));;
+			
+			
+			System.out.println(result.get("title"));	
 
+		return userConsultation;
+	}
 }
 
 

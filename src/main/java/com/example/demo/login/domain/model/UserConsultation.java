@@ -7,5 +7,5 @@ public class UserConsultation {
 	
 	private String title; //題名
 	private String content; //内容
-
+	
 }

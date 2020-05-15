@@ -25,17 +25,21 @@ public class AnswerController {
 	
 	 @Autowired
 	   UserAnswerService userAnswerService;
+	 @Autowired
+	   UserConsultationService userConsultationService;
 	
+	 
+	 
 	 @GetMapping("/answer")
-	    public String getanswer(Model model,AnswerForm answerForm) {
+	    public String getanswer(Model model,AnswerForm answerForm, UserConsultation userConsultation) {
 		 
 		//コンテンツ部分にユーザー一覧を表示するための文字列を登録
-	        model.addAttribute("contents", "login/answer :: answer_contents");
-	        
-	
+	     model.addAttribute("contents", "login/answer :: answer_contents");
+	     
+	     UserConsultation list2 = userConsultationService.getOne(userConsultation);
 		 List<UserAnswer> list = userAnswerService.getAll();
 		 
-		 
+		 model.addAttribute("ConsultationList", list2);
 		 model.addAttribute("AnswerList", list);
 			
 	    	 

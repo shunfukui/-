@@ -19,8 +19,10 @@ import com.example.demo.login.domain.service.UserConsultationService;
 @Controller
 
 public class ConsultationController {
-	
+
+
 UserConsultationService userConsultationService;
+UserConsultation userConsultation;
 
 
 
@@ -47,10 +49,15 @@ UserConsultationService userConsultationService;
     public String getconsultation(ConsultationForm consultationForm,
     		Model model,
     		@ModelAttribute("complete")String complete) {
-
-        return "login/consultation";
-    }
+		
+			return "login/consultation";
+	}
+		
+		
+		
 	
+
+
 	@PostMapping("/consultation")
 	public String consultation(@Validated ConsultationForm consultationForm,
 			BindingResult result,
@@ -63,6 +70,17 @@ UserConsultationService userConsultationService;
 			model.addAttribute("title", "consultation");
 			return "login/consultation";
 		}
+		
+		//データ件数を取得
+        boolean count = userConsultationService.count(form);
+        
+        if(count == false) {
+        model.addAttribute("false", false);
+    
+        return "login/consultation";
+        }
+        
+    
 		boolean userConsultation  = userConsultationService.insert(form);
 		 model.addAttribute("registration", "相談内容登録");
 		 
