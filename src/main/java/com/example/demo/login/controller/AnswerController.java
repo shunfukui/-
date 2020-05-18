@@ -30,16 +30,28 @@ public class AnswerController {
 	
 	 
 	 
+	 
+	 
 	 @GetMapping("/answer")
-	    public String getanswer(Model model,AnswerForm answerForm, UserConsultation userConsultation) {
+	    public String getanswer(Model model,AnswerForm answerForm,
+	    		UserConsultation userConsultation,
+	    		@ModelAttribute("userName") String form1,
+	    		@ModelAttribute("title") String form2,
+	    		@ModelAttribute("content") String form3) {
 		 
 		//コンテンツ部分にユーザー一覧を表示するための文字列を登録
 	     model.addAttribute("contents", "login/answer :: answer_contents");
 	     
-	     UserConsultation list2 = userConsultationService.getOne(userConsultation);
-		 List<UserAnswer> list = userAnswerService.getAll();
+
+	     UserConsultation list1 = new UserConsultation();
+		 List<UserAnswer> list = userAnswerService.getOne(userConsultation);
+		
 		 
-		 model.addAttribute("ConsultationList", list2);
+		 list1.setUserName(form1); //ユーザー名
+         list1.setTitle(form2); //タイトル
+         list1.setContent(form3); //内容
+         
+         model.addAttribute("ConsultationList", list1);
 		 model.addAttribute("AnswerList", list);
 			
 	    	 
@@ -50,8 +62,16 @@ public class AnswerController {
 	    public String postanswer(@Validated AnswerForm answerForm,
 				BindingResult result,
 				Model model,
-				RedirectAttributes redirectAttributes,
-				@ModelAttribute("userAnswer") UserAnswer form) {
+				RedirectAttributes redirectAttributes)
+	    		{
+		 UserAnswer form = new UserAnswer();
+		 
+		 System.out.println(answerForm);
+		 System.out.println(form);
+		 
+		 form.setUserName(answerForm.getUserName()); // 
+		 form.setTitle(answerForm.getTitle()); //
+		 form.setAnswerContent(answerForm.getContent()); //
 	    	
 
 			if(result.hasErrors()) {
@@ -60,6 +80,10 @@ public class AnswerController {
 			}
 			boolean userAnswer  = userAnswerService.insert(form);
 			 model.addAttribute("registration", "回答登録");
+			 
+			 model.addAttribute("username", answerForm.getUserName());
+			 model.addAttribute("title", answerForm.getTitle());
+			 model.addAttribute("content", answerForm.getContent());
 			 
 			 
 			

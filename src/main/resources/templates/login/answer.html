@@ -10,10 +10,12 @@
 	<h1>回答画面</h1>	
 			<table>
 				<tr>
+					<th>名前</th>
 					<th>タイトル</th>
 					<th>相談内容</th>
 				</tr>
 				<tr th:each=" consultation: ${ConsultationList}">
+				<td th:text="${consultation.userName}"></td>
 				<td th:text="${consultation.title}"></td>
 				<td th:text="${consultation.content}"></td>	
 				</tr>
@@ -27,12 +29,20 @@
 				<td th:text="${answer.content}"></td>	
 				</tr>
 			</table>   
+			<form method="get" action="#" th:action="@{/answer}" th:object="${answerForm}">
+				<tr th:each=" consultation: ${consultationsList}">
+				<td class="btn btn-danger" th:href="@{'/answer'}" th:text="${consultation.title}"></button>
+			</form>		
 
 			
 	<form method="post" action="#" th:action="@{/answer}" th:object="${answerForm}">
 		<label for="content">回答　:</label>
-		<textarea name="content" id="content" rows="3" cols="40" th:field="*{content}"></textarea><br>
-		<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+		<input type="text" name="userName" id="userName" th:field="*{userName}">
+		<input type="text" name="title" id="title" th:field="*{title}">
+		<input type="text" name="content" id="content" th:field="*{content}">
+		<textarea name="answercontent" id="answercontent" rows="3" cols="40" th:field="*{answercontent}"></textarea><br>
+		
+		<div th:if="${#fields.hasErrors('answercontent')}" th:errors="*{answercontent}"></div>
 		<input type="submit" value="投稿する">
 	
 	</form>

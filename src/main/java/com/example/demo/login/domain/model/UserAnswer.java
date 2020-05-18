@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class UserAnswer {
 	
-	private String content; //回答
+	private String userName; //回答
+	private String title; //回答
+	private String answerContent; //回答
 
 }

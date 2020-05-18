@@ -23,21 +23,26 @@ public class UserAnswerDaoJdbcImpl implements UserAnswerDao {
 	public int insertOne(UserAnswer userAnswer) throws DataAccessException {
 		 //１件登録
         int rowNumber = jdbc.update("INSERT INTO answers("
+        		+ "user_name,"
+        		+ "title,"
         		+ "content)"
-                + " VALUES(?)",
-                userAnswer.getContent());
+                + " VALUES(?, ?, ?)",
+                userAnswer.getUserName(),
+                userAnswer.getTitle(),
+                userAnswer.getAnswerContent());
 
         return rowNumber;
 	}
+	
 
 	@Override
-	public List<UserAnswer> getAll() {
-		String sql = "SELECT content FROM answers";
+	public List<UserAnswer> getOne(UserConsultation userconsultation) {
+		String sql = "SELECT content FROM answers　";
 		List<Map<String,Object>> resultList = jdbc.queryForList(sql);
 		List<UserAnswer> list = new ArrayList<UserAnswer>();
 		for(Map<String,Object> result : resultList) {
 			UserAnswer userAnswer = new UserAnswer();
-			userAnswer.setContent((String)result.get("content"));;
+			userAnswer.setAnswerContent((String)result.get("content"));;
 			list.add(userAnswer);
 			
 		}	

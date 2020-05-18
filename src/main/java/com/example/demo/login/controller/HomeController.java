@@ -75,7 +75,6 @@ public class HomeController {
         model.addAttribute("contents", "login/home :: home_contents");
 
         return "login/homeLayout";
-        
     }
 
     /**

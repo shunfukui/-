@@ -7,6 +7,11 @@ import lombok.Data;
 
 @Data
 public class ConsultationForm {
+	
+	//必須入力
+    @NotBlank
+    private String userName; // 内容
+    
 	//必須入力
    @NotBlank
     @Size(min = 1,max = 50,message = "50文字以内でお願いします")

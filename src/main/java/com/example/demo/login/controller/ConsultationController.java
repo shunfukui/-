@@ -76,6 +76,7 @@ UserConsultation userConsultation;
         
         if(count == false) {
         model.addAttribute("false", false);
+        model.addAttribute("allready", "その相談内容はすでにあります。");
     
         return "login/consultation";
         }

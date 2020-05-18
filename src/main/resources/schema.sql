@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS consultations (
 
 /* 回答 */
 CREATE TABLE IF NOT EXISTS answers (
+	title VARCHAR(100),
     content VARCHAR(1000),
     user_name VARCHAR(30),
     CONSTRAINT FK__answers__user_name FOREIGN KEY(user_name) REFERENCES users(user_name) 

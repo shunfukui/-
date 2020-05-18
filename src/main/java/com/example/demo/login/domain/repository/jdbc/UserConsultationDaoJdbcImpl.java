@@ -47,9 +47,11 @@ public class UserConsultationDaoJdbcImpl implements UserConsultationDao {
 
         //１件登録
         int rowNumber = jdbc.update("INSERT INTO consultations("
+        		+ " user_name,"
         		+ " title,"
         		+ "content)"
-                + " VALUES(?, ?)",
+                + " VALUES(?, ? ,?)",
+                userConsultation.getUserName(),
                 userConsultation.getTitle(),
                 userConsultation.getContent());
 
@@ -58,11 +60,12 @@ public class UserConsultationDaoJdbcImpl implements UserConsultationDao {
 	
     @Override
     public List<UserConsultation> getAll() {
-		String sql = "SELECT title,content FROM consultations";
+		String sql = "SELECT * FROM consultations";
 				List<Map<String,Object>> resultList = jdbc.queryForList(sql);
 				List<UserConsultation> list = new ArrayList<UserConsultation>();
 				for(Map<String,Object> result : resultList) {
 					UserConsultation userConsultation = new UserConsultation();
+					userConsultation.setUserName((String)result.get("user_name"));;
 					userConsultation.setTitle((String)result.get("title"));;
 					userConsultation.setContent((String)result.get("content"));;
 					list.add(userConsultation);
@@ -76,20 +79,27 @@ public class UserConsultationDaoJdbcImpl implements UserConsultationDao {
 	@Override
 	public UserConsultation getOne(UserConsultation userconsultation) {
 		String sql = "SELECT title,content FROM consultations";
+//				+ " user_name = '"+userconsultation.getUserName()+"' AND "
+//				+ " title = '"+userconsultation.getTitle()+"' AND "
+//        		+ "content = '"+userconsultation.getContent()+"'";
 				
+              
 
-		Map<String,Object> result = jdbc.queryForMap(sql);
+		List<Map<String,Object>> resultList = jdbc.queryForList(sql);
+		List<UserConsultation> list1 = new ArrayList<UserConsultation>();
+		for(Map<String,Object> result1 : resultList) {
 		
 			
 		//SQLから取ってきた値を型変換
 			UserConsultation userConsultation = new UserConsultation();
-			userConsultation.setTitle((String)result.get("title"));;
-			userConsultation.setContent((String)result.get("content"));;
+			userConsultation.setTitle((String)result1.get("title"));;
+			userConsultation.setContent((String)result1.get("content"));;
 			
 			
-			System.out.println(result.get("title"));	
+			System.out.println(result1.get("title"));	
+		}
 
-		return userConsultation;
+		return userconsultation;
 	}
 }
 
