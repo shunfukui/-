@@ -36,14 +36,23 @@ public class UserAnswerDaoJdbcImpl implements UserAnswerDao {
 	
 
 	@Override
-	public List<UserAnswer> getOne(UserConsultation userconsultation) {
-		String sql = "SELECT content FROM answers　";
+	public List<UserAnswer> getOne(UserAnswer userAnswer) {
+		String sql = "SELECT content FROM answers  WHERE "
+				+ " title = '"+userAnswer.getTitle()+"' AND "
+				+ "user_name = '"+userAnswer.getUserName()+"'";
+				
+		 
+		List<Map<String,Object>>  sqlList = jdbc.queryForList(sql);
+		
+		
+		
+		
 		List<Map<String,Object>> resultList = jdbc.queryForList(sql);
 		List<UserAnswer> list = new ArrayList<UserAnswer>();
 		for(Map<String,Object> result : resultList) {
-			UserAnswer userAnswer = new UserAnswer();
-			userAnswer.setAnswerContent((String)result.get("content"));;
-			list.add(userAnswer);
+			UserAnswer userAnswer1 = new UserAnswer();
+			userAnswer1.setAnswerContent((String)result.get("content"));;
+			list.add(userAnswer1);
 			
 		}	
 

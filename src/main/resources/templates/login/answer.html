@@ -10,12 +10,11 @@
 	<h1>回答画面</h1>	
 			<table>
 				<tr>
-					<th>名前</th>
 					<th>タイトル</th>
 					<th>相談内容</th>
 				</tr>
 				<tr th:each=" consultation: ${ConsultationList}">
-				<td th:text="${consultation.userName}"></td>
+				<!-- <td th:text="${consultation.userName}"></td> -->
 				<td th:text="${consultation.title}"></td>
 				<td th:text="${consultation.content}"></td>	
 				</tr>
@@ -26,7 +25,7 @@
 					<th>回答</th>
 				</tr>
 				<tr th:each=" answer: ${AnswerList}">
-				<td th:text="${answer.content}"></td>	
+				<td th:text="${answer.answerContent}"></td>	
 				</tr>
 			</table>   
 			<form method="get" action="#" th:action="@{/answer}" th:object="${answerForm}">
@@ -37,14 +36,12 @@
 			
 	<form method="post" action="#" th:action="@{/answer}" th:object="${answerForm}">
 		<label for="content">回答　:</label>
-		<input type="text" name="userName" id="userName" th:field="*{userName}">
-		<input type="text" name="title" id="title" th:field="*{title}">
-		<input type="text" name="content" id="content" th:field="*{content}">
-		<textarea name="answercontent" id="answercontent" rows="3" cols="40" th:field="*{answercontent}"></textarea><br>
-		
-		<div th:if="${#fields.hasErrors('answercontent')}" th:errors="*{answercontent}"></div>
+		<input type="hidden" name="userName" id="userName" th:field="${answerForm.userName}">
+		<input type="hidden" name="title" id="title" th:field="${answerForm.title}">
+		<input type="hidden" name="content" id="content" th:field="${answerForm.content}">
+		<textarea name="answerContent" id="answerContent" rows="3" cols="40" th:field="${answerForm.answerContent}"></textarea><br>
+		<div th:if="${#fields.hasErrors('answerContent')}" th:errors="*{answerContent}"></div>
 		<input type="submit" value="投稿する">
-	
 	</form>
 			 <a class="btn btn-primary" th:href="@{'/home'}">戻る</a>
 

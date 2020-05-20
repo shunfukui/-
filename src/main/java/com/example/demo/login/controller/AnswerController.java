@@ -33,7 +33,7 @@ public class AnswerController {
 	 
 	 
 	 @GetMapping("/answer")
-	    public String getanswer(Model model,AnswerForm answerForm,
+	    public String getanswer(Model model,
 	    		UserConsultation userConsultation,
 	    		@ModelAttribute("userName") String form1,
 	    		@ModelAttribute("title") String form2,
@@ -42,9 +42,15 @@ public class AnswerController {
 		//コンテンツ部分にユーザー一覧を表示するための文字列を登録
 	     model.addAttribute("contents", "login/answer :: answer_contents");
 	     
-
-	     UserConsultation list1 = new UserConsultation();
-		 List<UserAnswer> list = userAnswerService.getOne(userConsultation);
+		 UserAnswer userAnswer = new UserAnswer();
+		 
+		 userAnswer.setUserName(form1); // 
+		 userAnswer.setTitle(form2); //
+		 userAnswer.setAnswerContent(form3); //
+		 
+		 
+		 UserConsultation list1 = new UserConsultation();
+		 List<UserAnswer> list = userAnswerService.getOne(userAnswer);
 		
 		 
 		 list1.setUserName(form1); //ユーザー名
@@ -53,6 +59,14 @@ public class AnswerController {
          
          model.addAttribute("ConsultationList", list1);
 		 model.addAttribute("AnswerList", list);
+		 
+		 AnswerForm list2 = new AnswerForm();
+	
+		 list2.setUserName(form1); //ユーザー名
+         list2.setTitle(form2); //タイトル
+         list2.setContent(form3); //内容
+
+		 model.addAttribute("answerForm", list2);
 			
 	    	 
 		 return "login/answer";
@@ -62,18 +76,15 @@ public class AnswerController {
 	    public String postanswer(@Validated AnswerForm answerForm,
 				BindingResult result,
 				Model model,
-				RedirectAttributes redirectAttributes)
-	    		{
-		 UserAnswer form = new UserAnswer();
+				RedirectAttributes redirectAttributes){
 		 
-		 System.out.println(answerForm);
-		 System.out.println(form);
+		 UserAnswer form = new UserAnswer();
 		 
 		 form.setUserName(answerForm.getUserName()); // 
 		 form.setTitle(answerForm.getTitle()); //
-		 form.setAnswerContent(answerForm.getContent()); //
+		 form.setAnswerContent(answerForm.getAnswerContent()); //
 	    	
-
+	    		
 			if(result.hasErrors()) {
 				model.addAttribute("title", "answer");
 				return "login/answer";
@@ -81,11 +92,10 @@ public class AnswerController {
 			boolean userAnswer  = userAnswerService.insert(form);
 			 model.addAttribute("registration", "回答登録");
 			 
-			 model.addAttribute("username", answerForm.getUserName());
-			 model.addAttribute("title", answerForm.getTitle());
-			 model.addAttribute("content", answerForm.getContent());
-			 
-			 
+			
+			 redirectAttributes.addFlashAttribute("userName", answerForm.getUserName());
+			 redirectAttributes.addFlashAttribute("title", answerForm.getTitle());
+			 redirectAttributes.addFlashAttribute("content", answerForm.getContent());
 			
 			redirectAttributes.addFlashAttribute("complete", "投稿完了");
 			return "redirect:/answer";

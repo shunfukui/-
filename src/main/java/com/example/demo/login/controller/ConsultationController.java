@@ -1,5 +1,7 @@
 package com.example.demo.login.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.login.domain.model.AnswerForm;
 import com.example.demo.login.domain.model.ConsultationForm;
+import com.example.demo.login.domain.model.User;
+import com.example.demo.login.domain.model.UserAnswer;
 import com.example.demo.login.domain.model.UserConsultation;
 import com.example.demo.login.domain.service.UserConsultationService;
 
@@ -48,7 +53,26 @@ UserConsultation userConsultation;
 	@GetMapping("/consultation")
     public String getconsultation(ConsultationForm consultationForm,
     		Model model,
-    		@ModelAttribute("complete")String complete) {
+    		@ModelAttribute("complete")String complete,
+    		@ModelAttribute("userName") String userName) {
+		
+		UserConsultation userConsultationName = new UserConsultation();
+		 
+		 
+		 userConsultationName.setUserName(userName); // 
+		 
+		 UserConsultation nameList = new UserConsultation();
+		
+		 
+		 nameList.setUserName(userName); //ユーザー名
+        
+        model.addAttribute("nameList", nameList);
+		 
+		 ConsultationForm nameList2 = new ConsultationForm();
+	
+		 nameList2.setUserName(userName); //ユーザー名
+
+		 model.addAttribute("consultationForm", nameList2);
 		
 			return "login/consultation";
 	}
