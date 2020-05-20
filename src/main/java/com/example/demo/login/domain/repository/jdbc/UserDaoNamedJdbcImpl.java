@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -193,4 +194,10 @@ public class UserDaoNamedJdbcImpl implements UserDao {
         //クエリー実行＆CSV出力
         jdbc.query(sql, handler);
     }
+
+	@Override
+	public String selectName(String mailAddress) throws DataAccessException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
 }

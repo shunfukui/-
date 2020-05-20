@@ -1,5 +1,6 @@
 package com.example.demo.login.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.example.demo.login.domain.model.User;
 import com.example.demo.login.domain.model.UserAnswer;
 import com.example.demo.login.domain.model.UserConsultation;
 import com.example.demo.login.domain.service.UserConsultationService;
+import com.example.demo.login.domain.service.UserService;
 
 
 
@@ -28,6 +30,8 @@ public class ConsultationController {
 
 UserConsultationService userConsultationService;
 UserConsultation userConsultation;
+@Autowired
+UserService userService;
 
 
 
@@ -53,26 +57,34 @@ UserConsultation userConsultation;
 	@GetMapping("/consultation")
     public String getconsultation(ConsultationForm consultationForm,
     		Model model,
+    		Principal principal,
     		@ModelAttribute("complete")String complete,
     		@ModelAttribute("userName") String userName) {
 		
 		UserConsultation userConsultationName = new UserConsultation();
-		 
-		 
+		 principal.getName();
 		 userConsultationName.setUserName(userName); // 
 		 
+		 
+		 //ユーザー一覧の生成
+	     String myName = userService.selectName( principal.getName());
+	        
+	     //Modelにユーザーリストを登録
+	     model.addAttribute("myPage", myName);
+	  
 		 UserConsultation nameList = new UserConsultation();
 		
-		 
 		 nameList.setUserName(userName); //ユーザー名
         
-        model.addAttribute("nameList", nameList);
+		 model.addAttribute("nameList", nameList);
 		 
 		 ConsultationForm nameList2 = new ConsultationForm();
 	
-		 nameList2.setUserName(userName); //ユーザー名
+		 nameList2.setUserName(myName); //ユーザー名
 
 		 model.addAttribute("consultationForm", nameList2);
+		 
+		 
 		
 			return "login/consultation";
 	}
@@ -87,13 +99,28 @@ UserConsultation userConsultation;
 			BindingResult result,
 			Model model,
 			RedirectAttributes redirectAttributes,
+			@ModelAttribute("userName") String userName,
 			@ModelAttribute("userConsultation") UserConsultation form
 			) {
 
 		if(result.hasErrors()) {
+			redirectAttributes.addFlashAttribute("userName", consultationForm.getUserName());
 			model.addAttribute("title", "consultation");
-			return "login/consultation";
+			return "redirect:consultation";
 		}
+		
+		
+		UserConsultation userConsultationName = new UserConsultation();
+		 
+		userConsultationName.setUserName(userName); // 
+		
+		ConsultationForm nameList2 = new ConsultationForm();
+		
+		nameList2.setUserName(userName); //ユーザー名
+
+		model.addAttribute("consultationForm", nameList2);
+		
+		
 		
 		//データ件数を取得
         boolean count = userConsultationService.count(form);
@@ -110,9 +137,13 @@ UserConsultation userConsultation;
 		 model.addAttribute("registration", "相談内容登録");
 		 
 		 
-		
+		redirectAttributes.addFlashAttribute("userName", consultationForm.getUserName());
 		redirectAttributes.addFlashAttribute("complete", "投稿完了");
 		return "redirect:/home";
 	}
+	
+	
+		
+
 
 }

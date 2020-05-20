@@ -76,6 +76,9 @@ public class AnswerController {
 	    public String postanswer(@Validated AnswerForm answerForm,
 				BindingResult result,
 				Model model,
+				@ModelAttribute("userName") String form1,
+	    		@ModelAttribute("title") String form2,
+	    		@ModelAttribute("content") String form3,
 				RedirectAttributes redirectAttributes){
 		 
 		 UserAnswer form = new UserAnswer();
@@ -87,6 +90,19 @@ public class AnswerController {
 	    		
 			if(result.hasErrors()) {
 				model.addAttribute("title", "answer");
+				
+				UserAnswer userAnswer = new UserAnswer();
+				 
+				 
+				UserConsultation list1 = new UserConsultation();
+				list1.setUserName(form1); //ユーザー名
+		         list1.setTitle(form2); //タイトル
+		         list1.setContent(form3); //内容
+		         
+				List<UserAnswer> list = userAnswerService.getOne(form);
+				
+				model.addAttribute("ConsultationList", list1);
+				model.addAttribute("AnswerList", list);
 				return "login/answer";
 			}
 			boolean userAnswer  = userAnswerService.insert(form);

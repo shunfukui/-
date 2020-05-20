@@ -1,6 +1,7 @@
 package com.example.demo.login.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +65,8 @@ public class HomeController {
      */
     @GetMapping("/home")
     public String getHome(Model model) {
+    	
+    	
     	
     	List<UserConsultation> list = userConsultationService.getAll();
 

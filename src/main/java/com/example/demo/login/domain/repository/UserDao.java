@@ -16,6 +16,9 @@ public interface UserDao {
 
     // Userテーブルのデータを１件取得
     public User selectOne(String userName) throws DataAccessException;
+    
+ // Userテーブルのデータを１件取得
+    public String selectName(String mailAddress) throws DataAccessException;
 
     // Userテーブルの全データを取得.
     public List<User> selectMany() throws DataAccessException;

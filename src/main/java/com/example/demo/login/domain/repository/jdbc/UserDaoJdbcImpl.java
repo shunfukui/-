@@ -172,4 +172,13 @@ public class UserDaoJdbcImpl implements UserDao {
         //SQL実行＆CSV出力
         jdbc.query(sql, handler);
     }
+
+	@Override
+	public String selectName(String mailAddress) throws DataAccessException {
+		// １件取得
+        String map = jdbc.queryForObject("SELECT user_name FROM users"
+                + " WHERE mail_address = '"+mailAddress+"'",String.class);
+        
+        return map;
+	}
 }

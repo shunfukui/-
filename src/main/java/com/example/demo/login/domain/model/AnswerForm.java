@@ -21,7 +21,7 @@ public class AnswerForm {
 	private String content; // 回答
 	
 	//必須入力
-		@NotBlank
-		private String answerContent; // 
+	@NotBlank
+	private String answerContent; // 
 
 }

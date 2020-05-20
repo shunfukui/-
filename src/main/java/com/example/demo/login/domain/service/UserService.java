@@ -65,6 +65,14 @@ public class UserService {
         // selectOne実行
         return dao.selectOne(userName);
     }
+    
+    /**
+     * １件取得用メソッド.
+     */
+    public String selectName(String mailAddress) {
+        // selectOne実行
+        return dao.selectName(mailAddress);
+    }
 
     /**
      * １件更新用メソッド.
