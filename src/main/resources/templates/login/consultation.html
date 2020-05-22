@@ -4,29 +4,43 @@
 <head>
 <meta charset="UTF-8">
 <title th:text="${title}">相談画面</title>
+
+	<!-- Font Awesome 5 -->
+  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+ 	<!-- Bootstrap core CSS -->
+	<link href="/docs/4.5/dist/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    
+    <!-- Bootstrapの設定 -->
+    <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    
+    <!-- CSSの読込 -->
+    <link th:href="@{/css/consultation.css}" rel="stylesheet"></link>
+   	<link th:href="@{/css/footer.css}" rel="stylesheet"></link>
+    
 </head>
 <body>
+<div th:replace="~{login/block/header::headerA}"></div>
 <h1 th:text="${title}">相談画面</h1>
 <h2 th:text="${allready}"></h2>
 
 
 
 
-<form method="post" action="#" th:action="@{/consultation}" th:object="${consultationForm}">
-	<label for="name">名前</label>
-	<!-- <input id="userName" name="userName" type="text" th:value="*{userName}" ><br> -->
-	<input type="text" name="userName" id="userName" th:field="${consultationForm.userName}"> 
+<form class="text-center" method="post" action="#" th:action="@{/consultation}" th:object="${consultationForm}">
+	<input type="hidden" name="userName" id="userName" th:field="${consultationForm.userName}"> 
 	<div th:if="${#fields.hasErrors('title')}" th:errors="*{userName}"></div><br>
-	<label for="name">相談題名</label>
-	<input id="title" name="title" type="text" th:value="*{title}" ><br>
+	<label for="name">相談題名</label><br>
+	<input id="title" name="title" type="text" th:value="*{title}" placeholder="相談タイトルを記載して下さい"><br>
 	<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
-	<label for="content">相談詳細　:</label>
-	<textarea name="content" id="content" rows="3" cols="40" th:field="*{content}"></textarea><br>
+	<label for="content">相談詳細</label><br>
+	<textarea name="content" id="content" th:field="*{content}" placeholder="相談内容を記載して下さい"></textarea><br>
 	<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
-	<input type="submit" value="投稿する">
-	
+	<input class="btn btn-primary" type="submit" value="投稿する">
 </form>
-
-<a class="btn btn-primary" th:href="@{'/home'}">戻る</a>
+<div th:replace="~{login/block/footer::footerA}"></div>
 </body>
 </html>

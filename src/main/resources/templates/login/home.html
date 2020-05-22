@@ -8,24 +8,33 @@
     <!-- ポイント：th:fragment -->
     <div th:fragment="home_contents">
         <div class="page-header">
-            <h1 class="text-center">ホーム</h1> 
+            <h1 class="text-center"></h1> 
         </div>
         <h2 th:text="${complete}"></h2>
-        <a class="btn btn-danger" th:href="@{'/consultation'}">相談する</a><br>
-        <h2>相談一覧</h2>
-        	
-        <table>
-			<tr th:each=" consultation: ${consultationsList}">
-				
-				<a class="btn btn-danger" th:href="@{/answer
-				(userName=${consultation.userName},
-				title=${consultation.title},
-				content=${consultation.content})}" 
-				th:text="${consultation.title}"></a>
-				
-				<br>
+        <div class="text-center">
+        	<a class="btn btn-primary" style="width:550px" th:href="@{'/consultation'}">相談する</a>
+        </div>
+        
+        <table class="table table-hover">
+		  <thead>
+		    <tr>
+		      <th scope="col">No.</th>
+		      <th scope="col">相談タイトル一覧</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each=" consultation: ${consultationsList}">
+		    <th scope="row">1</th>
+    		<td>	
+			<a th:href="@{/answer
+			(userName=${consultation.userName},
+			title=${consultation.title},
+			content=${consultation.content})}" 
+			th:text="${consultation.title}">あああ</a><br>
+			<td>
 			</tr>
-		</table>   
+ 		 </tbody>
+		</table>
     </div>
 </body>
 </html>

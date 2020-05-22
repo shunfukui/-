@@ -3,47 +3,84 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	
+	<!-- Font Awesome 5 -->
+  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+	<!-- Bootstrap core CSS -->
+	<link href="/docs/4.5/dist/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    
+    <!-- Bootstrapの設定 -->
+    <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    
+     <!-- CSSの読込 -->
+    <link th:href="@{/css/answer.css}" rel="stylesheet"></link>
+    <link th:href="@{/css/footer.css}" rel="stylesheet"></link>
+    
+	<title>Insert title here</title>
 </head>
 <body>
-	<h1>回答画面</h1>	
-			<table>
-				<tr>
-					<th>タイトル</th>
-					<th>相談内容</th>
-				</tr>
-				<tr th:each=" consultation: ${ConsultationList}">
-				<!-- <td th:text="${consultation.userName}"></td> -->
+	<div th:replace="~{login/block/header::headerA}"></div>
+		<table class="a">
+			<tr>
+				<th>タイトル</th>
+				<th>相談内容</th>
+			</tr>
+			<tr th:each=" consultation: ${ConsultationList}">
 				<td th:text="${consultation.title}"></td>
 				<td th:text="${consultation.content}"></td>	
-				</tr>
-			</table>   
-			
-			<table>
-				<tr>
-					<th>回答</th>
-				</tr>
-				<tr th:each=" answer: ${AnswerList}">
-				<td th:text="${answer.answerContent}"></td>	
-				</tr>
-			</table>   
-			<form method="get" action="#" th:action="@{/answer}" th:object="${answerForm}">
+			</tr>
+		</table>   
+	
+	<form method="get" action="#" th:action="@{/answer}" th:object="${answerForm}">
+		<table class="table table-hover"> 
+		  <thead>
+		    <tr>
+		      <th scope="col">回答内容一覧</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<tr th:each=" answer: ${AnswerList}">
+				<td class="a" th:text="${answer.answerContent}"></td>	
+			</tr>
 				<tr th:each=" consultation: ${consultationsList}">
-				<td class="btn btn-danger" th:href="@{'/answer'}" th:text="${consultation.title}"></button>
-			</form>		
-
+				<td class="btn btn-danger" th:href="@{'/answer'}" th:text="${consultation.title}"></td>
+				</tr>
+		  </tbody>
+		</table>
+	</form>		
+	
+	
+		
+	
 			
-	<form method="post" action="#" th:action="@{/answer}" th:object="${answerForm}">
-		<label for="content">回答　:</label>
+	<!-- div class="answer-box">
+		<table>
+			<tr th:each=" answer: ${AnswerList}">
+				<td class="a" th:text="${answer.answerContent}"></td>	
+			</tr>
+		</table>   
+	
+		<form method="get" action="#" th:action="@{/answer}" th:object="${answerForm}">
+			<tr th:each=" consultation: ${consultationsList}">
+			<td class="btn btn-danger" th:href="@{'/answer'}" th:text="${consultation.title}"></td>
+			</tr>
+		</form>		
+	</div>	 -->
+	<p class=text-center>回答</p>
+	<form class=text-center method="post" action="#" th:action="@{/answer}" th:object="${answerForm}">
 		<input type="hidden" name="userName" id="userName" th:field="${answerForm.userName}">
 		<input type="hidden" name="title" id="title" th:field="${answerForm.title}">
 		<input type="hidden" name="content" id="content" th:field="${answerForm.content}">
-		<textarea name="answerContent" id="answerContent" rows="3" cols="40" th:field="${answerForm.answerContent}"></textarea><br>
+		<textarea name="answerContent" id="answerContent" rows="3" cols="40" th:field="${answerForm.answerContent}" placeholder="回答を記載して下さい"></textarea><br>
 		<div th:if="${#fields.hasErrors('answerContent')}" th:errors="*{answerContent}"></div>
-		<input type="submit" value="投稿する">
+		<input class="btn btn-primary" type="submit" value="投稿する">
 	</form>
-			 <a class="btn btn-primary" th:href="@{'/home'}">戻る</a>
-
+	
+	<div th:replace="~{login/block/footer::footerA}"></div>
 </body>
 </html>

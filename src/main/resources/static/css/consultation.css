@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+
+#title {
+	width: 700px;
+	padding: 10px;
+}
+
+#content {
+	width: 700px;
+	height: 300px;
+}

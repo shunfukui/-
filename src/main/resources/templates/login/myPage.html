@@ -3,13 +3,27 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8"></meta>
+    
+    <!-- Font Awesome 5 -->
+  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+	<!-- Bootstrap core CSS -->
+	<link href="/docs/4.5/dist/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    
+    <!-- Bootstrapの設定 -->
+    <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    
+     <!-- CSSの読込 -->
+    <link th:href="@{/css/mypage.css}" rel="stylesheet"></link>
+    <link th:href="@{/css/footer.css}" rel="stylesheet"></link>
 </head>
 <body>
     <!-- コンテンツ部分 -->
-    <div th:fragment="myPage_contents">
-        <div class="page-header">
-            <h1>マイページ登録情報</h1>
-        </div>
+    <div th:fragment="myPage_contents" class="a">
+    <div class="a">
         <table class="table table-bordered table-hover table-striped">
             <tr>
                 <th class="info col-sm-2">名前</th>
@@ -34,8 +48,7 @@
         
         <!-- 更新・削除処理の結果表示用 -->
         <label class="text-info" th:text="${result}">結果表示</label><br/>
-       
-        <a class="btn btn-primary" th:href="@{'/home'}">戻る</a>
+       </div>
     </div>
 </body>
 </html>
