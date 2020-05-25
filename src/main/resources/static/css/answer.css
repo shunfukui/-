@@ -9,9 +9,25 @@
 	height: 300px;
 }
 
-.a {
+.answer-box {
 	text-align:center;
 	display: flex;
   	justify-content: center;
   	
+}
+
+.answer-title{
+	text-align:center;
+	font-size:20px;
+	
+}
+
+
+.consul-tc{
+	text-align:center;
+	font-size:20px;
+}
+
+p {
+	margin-bottom:0;
 }

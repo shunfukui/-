@@ -21,31 +21,29 @@
     <link th:href="@{/css/answer.css}" rel="stylesheet"></link>
     <link th:href="@{/css/footer.css}" rel="stylesheet"></link>
     
-	<title>Insert title here</title>
+	<title>answer</title>
 </head>
 <body>
 	<div th:replace="~{login/block/header::headerA}"></div>
-		<table class="a">
-			<tr>
-				<th>タイトル</th>
-				<th>相談内容</th>
-			</tr>
+		<div class="consul-tc">
 			<tr th:each=" consultation: ${ConsultationList}">
-				<td th:text="${consultation.title}"></td>
-				<td th:text="${consultation.content}"></td>	
-			</tr>
-		</table>   
-	
+			<p>相談タイトル</p>
+			<td th:text="${consultation.title}"></td><br>
+			<p>相談内容</p>
+			<td th:text="${consultation.content}"></td>	
+			</tr>  
+		</div>
+	<p class="answer-title">回答内容一覧</p>
 	<form method="get" action="#" th:action="@{/answer}" th:object="${answerForm}">
 		<table class="table table-hover"> 
 		  <thead>
 		    <tr>
-		      <th scope="col">回答内容一覧</th>
+		      <th scope="col"></th>
 		    </tr>
 		  </thead>
 		  <tbody>
 		  	<tr th:each=" answer: ${AnswerList}">
-				<td class="a" th:text="${answer.answerContent}"></td>	
+				<td class="answer-box" th:text="${answer.answerContent}"></td>	
 			</tr>
 				<tr th:each=" consultation: ${consultationsList}">
 				<td class="btn btn-danger" th:href="@{'/answer'}" th:text="${consultation.title}"></td>
@@ -81,6 +79,6 @@
 		<input class="btn btn-primary" type="submit" value="投稿する">
 	</form>
 	
-	<div th:replace="~{login/block/footer::footerA}"></div>
+	
 </body>
 </html>

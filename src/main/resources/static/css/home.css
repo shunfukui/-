@@ -4,13 +4,10 @@ body {
 
 
 .main {
-  padding-top: 50px;
+  padding-top: 20px;
   padding-left: 0px;
-  position: fixed;
-  display: block;
-  top: 0px;
-  bottom: 0;
-  margin-top:80px;
+   padding-right: 0px;
+  margin-top:0px;
 }
 
 .page-header {
