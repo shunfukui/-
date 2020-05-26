@@ -16,7 +16,7 @@ public interface UserAnswerDao {
 
 
 
-	List<UserAnswer> getOne(UserAnswer userAnswer);
+	List<UserAnswer> getAll(UserAnswer userAnswer);
     
 
 }

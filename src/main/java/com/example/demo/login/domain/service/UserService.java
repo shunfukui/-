@@ -46,9 +46,9 @@ public class UserService {
     /**
      * カウント用メソッド.
      */
-    public int count() {
-        return dao.count();
-    }
+//    public int count() {
+//        return dao.count();
+//    }
 
     /**
      * 全件取得用メソッド.
@@ -63,7 +63,7 @@ public class UserService {
      */
     public User selectOne(String userName) {
         // selectOne実行
-        return dao.selectOne(userName);
+        return dao.selectAll(userName);
     }
     
     /**
@@ -115,10 +115,10 @@ public class UserService {
     /**
      * @throws DataAccessException
      */
-    public void userCsvOut() throws DataAccessException {
-        // CSV出力
-        dao.userCsvOut();
-    }
+//    public void userCsvOut() throws DataAccessException {
+//        // CSV出力
+//        dao.userCsvOut();
+//    }
 
     /**
      * サーバーに保存されているファイルを取得して、byte配列に変換する.

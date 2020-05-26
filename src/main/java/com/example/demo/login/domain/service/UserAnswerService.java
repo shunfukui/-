@@ -38,7 +38,7 @@ public class UserAnswerService {
     
     
     public List<UserAnswer> getOne(UserAnswer userAnswer) {
-		return dao.getOne(userAnswer);
+		return dao.getAll(userAnswer);
 	}
 	
 

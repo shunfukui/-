@@ -22,18 +22,18 @@ public class UserDaoNamedJdbcImpl implements UserDao {
     private NamedParameterJdbcTemplate jdbc;
 
     //Userテーブルの件数を取得.
-    @Override
-    public int count() {
-
-        //SQL分
-        String sql = "SELECT COUNT(*) FROM users";
-
-        //パラメーター生成
-        SqlParameterSource params = new MapSqlParameterSource();
-
-        //全件取得してカウント
-        return jdbc.queryForObject(sql, params, Integer.class);
-    }
+//    @Override
+//    public int count() {
+//
+//        //SQL分
+//        String sql = "SELECT COUNT(*) FROM users";
+//
+//        //パラメーター生成
+//        SqlParameterSource params = new MapSqlParameterSource();
+//
+//        //全件取得してカウント
+//        return jdbc.queryForObject(sql, params, Integer.class);
+//    }
 
     //Userテーブルにデータを1件insert.
     @Override
@@ -72,7 +72,7 @@ public class UserDaoNamedJdbcImpl implements UserDao {
 
     //Userテーブルのデータを１件取得
     @Override
-    public User selectOne(String mailAddress) {
+    public User selectAll(String mailAddress) {
 
         //SQL文
         String sql = "SELECT * FROM users WHERE mail_address = :mailAddress";
@@ -181,19 +181,19 @@ public class UserDaoNamedJdbcImpl implements UserDao {
         return rowNumber;
     }
 
-    //SQL取得結果をサーバーにCSVで保存する
-    @Override
-    public void userCsvOut() {
-
-        //M_USERテーブルのデータを全件取得するSQL
-        String sql = "SELECT * FROM users";
-
-        //ResultSetExtractorの生成
-        UserRowCallbackHandler handler = new UserRowCallbackHandler();
-
-        //クエリー実行＆CSV出力
-        jdbc.query(sql, handler);
-    }
+//    //SQL取得結果をサーバーにCSVで保存する
+//    @Override
+//    public void userCsvOut() {
+//
+//        //M_USERテーブルのデータを全件取得するSQL
+//        String sql = "SELECT * FROM users";
+//
+//        //ResultSetExtractorの生成
+//        UserRowCallbackHandler handler = new UserRowCallbackHandler();
+//
+//        //クエリー実行＆CSV出力
+//        jdbc.query(sql, handler);
+//    }
 
 	@Override
 	public String selectName(String mailAddress) throws DataAccessException {

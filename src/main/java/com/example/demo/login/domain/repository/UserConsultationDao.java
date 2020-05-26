@@ -22,7 +22,7 @@ public interface UserConsultationDao {
 
 	List<UserConsultation> getAll();
 	
-	UserConsultation getOne(UserConsultation userconsultation);
+//	UserConsultation getOne(UserConsultation userconsultation);
 
 	
 	

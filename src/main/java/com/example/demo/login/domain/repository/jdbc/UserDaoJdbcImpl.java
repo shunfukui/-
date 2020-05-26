@@ -24,14 +24,14 @@ public class UserDaoJdbcImpl implements UserDao {
     PasswordEncoder passwordEncoder;
 
     // Userテーブルの件数を取得.
-    @Override
-    public int count() throws DataAccessException {
-
-        // 全件取得してカウント
-        int count = jdbc.queryForObject("SELECT COUNT(*) FROM users", Integer.class);
-
-        return count;
-    }
+//    @Override
+//    public int count() throws DataAccessException {
+//
+//        // 全件取得してカウント
+//        int count = jdbc.queryForObject("SELECT COUNT(*) FROM users", Integer.class);
+//
+//        return count;
+//    }
 
     // Userテーブルにデータを1件insert.
     @Override
@@ -63,7 +63,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     // Userテーブルのデータを１件取得
     @Override
-    public User selectOne(String userName) throws DataAccessException {
+    public User selectAll(String userName) throws DataAccessException {
 
         // １件取得
         Map<String, Object> map = jdbc.queryForMap("SELECT * FROM users"
@@ -159,19 +159,19 @@ public class UserDaoJdbcImpl implements UserDao {
         return rowNumber;
     }
 
-    //SQL取得結果をサーバーにCSVで保存する
-    @Override
-    public void userCsvOut() throws DataAccessException {
-
-        // M_USERテーブルのデータを全件取得するSQL
-        String sql = "SELECT * FROM users";
-
-        // ResultSetExtractorの生成
-        UserRowCallbackHandler handler = new UserRowCallbackHandler();
-
-        //SQL実行＆CSV出力
-        jdbc.query(sql, handler);
-    }
+//    //SQL取得結果をサーバーにCSVで保存する
+//    @Override
+//    public void userCsvOut() throws DataAccessException {
+//
+//        // M_USERテーブルのデータを全件取得するSQL
+//        String sql = "SELECT * FROM users";
+//
+//        // ResultSetExtractorの生成
+//        UserRowCallbackHandler handler = new UserRowCallbackHandler();
+//
+//        //SQL実行＆CSV出力
+//        jdbc.query(sql, handler);
+//    }
 
 	@Override
 	public String selectName(String mailAddress) throws DataAccessException {

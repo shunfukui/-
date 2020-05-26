@@ -36,7 +36,7 @@ public class UserAnswerDaoJdbcImpl implements UserAnswerDao {
 	
 
 	@Override
-	public List<UserAnswer> getOne(UserAnswer userAnswer) {
+	public List<UserAnswer> getAll(UserAnswer userAnswer) {
 		String sql = "SELECT content FROM answers  WHERE "
 				+ " title = '"+userAnswer.getTitle()+"' AND "
 				+ "user_name = '"+userAnswer.getUserName()+"'";

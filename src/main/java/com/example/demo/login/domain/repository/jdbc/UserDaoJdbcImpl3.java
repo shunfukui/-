@@ -18,7 +18,7 @@ public class UserDaoJdbcImpl3 extends UserDaoJdbcImpl {
 
     //ユーザー１件取得
     @Override
-    public User selectOne(String userId) {
+    public User selectAll(String userId) {
 
         //１件取得用SQL
         String sql = "SELECT * FROM m_user WHERE user_id = ?";

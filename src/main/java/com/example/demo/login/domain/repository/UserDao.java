@@ -8,14 +8,14 @@ import com.example.demo.login.domain.model.User;
 
 public interface UserDao {
 
-    // Userテーブルの件数を取得.
-    public int count() throws DataAccessException;
+//    // Userテーブルの件数を取得.
+//    public int count() throws DataAccessException;
 
     // Userテーブルにデータを1件insert.
     public int insertOne(User user) throws DataAccessException;
 
     // Userテーブルのデータを１件取得
-    public User selectOne(String userName) throws DataAccessException;
+    public User selectAll(String userName) throws DataAccessException;
     
  // Userテーブルのデータを１件取得
     public String selectName(String mailAddress) throws DataAccessException;
@@ -29,6 +29,6 @@ public interface UserDao {
     // Userテーブルを１件削除.
     public int deleteOne(String userId) throws DataAccessException;
 
-    //SQL取得結果をサーバーにCSVで保存する
-    public void userCsvOut() throws DataAccessException;
+//    //SQL取得結果をサーバーにCSVで保存する
+//    public void userCsvOut() throws DataAccessException;
 }

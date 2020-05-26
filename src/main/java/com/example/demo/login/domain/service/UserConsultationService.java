@@ -63,10 +63,10 @@ public class UserConsultationService {
 		return dao.getAll();
 	}
     
-    public UserConsultation getOne(UserConsultation userConsultation) {
-		return dao.getOne(userConsultation);
-	}
-	
+//    public UserConsultation getOne(UserConsultation userConsultation) {
+//		return dao.getOne(userConsultation);
+//	}
+//	
 	
 	
 }

@@ -66,13 +66,10 @@ public class HomeController {
     @GetMapping("/home")
     public String getHome(Model model) {
     	
-    	
-    	
     	List<UserConsultation> list = userConsultationService.getAll();
 
 		model.addAttribute("consultationsList", list);
 		model.addAttribute("title", "home");
-		
 		
         //コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "login/home :: home_contents");
@@ -95,9 +92,9 @@ public class HomeController {
         //Modelにユーザーリストを登録
         model.addAttribute("myPage", myPage);
 
-        //データ件数を取得
-        int count = userService.count();
-        model.addAttribute("myPageCount", count);
+//        //データ件数を取得
+//        int count = userService.count();
+//        model.addAttribute("myPageCount", count);
 
         return "login/homeLayout";
     }
@@ -201,7 +198,7 @@ public class HomeController {
 
             model.addAttribute("result", "削除失敗");
 
-        }
+        } 
 
         //ユーザー一覧画面を表示
         return getMyPage(model);
@@ -220,31 +217,31 @@ public class HomeController {
     /**
      * ユーザー一覧のCSV出力用処理.
      */
-    @GetMapping("/myPage/csv")
-    public ResponseEntity<byte[]> getMyPageCsv(Model model) {
-
-        //ユーザーを全件取得して、CSVをサーバーに保存する
-        userService.userCsvOut();
-
-        byte[] bytes = null;
-
-        try {
-
-            //サーバーに保存されているsample.csvファイルをbyteで取得する
-            bytes = userService.getFile("sample.csv");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //HTTPヘッダーの設定
-        HttpHeaders header = new HttpHeaders();
-        header.add("Content-Type", "text/csv; charset=UTF-8");
-        header.setContentDispositionFormData("filename", "sample.csv");
-
-        //sample.csvを戻す
-        return new ResponseEntity<>(bytes, header, HttpStatus.OK);
-    }
+//    @GetMapping("/myPage/csv")
+//    public ResponseEntity<byte[]> getMyPageCsv(Model model) {
+//
+//        //ユーザーを全件取得して、CSVをサーバーに保存する
+//        userService.userCsvOut();
+//
+//        byte[] bytes = null;
+//
+//        try {
+//
+//            //サーバーに保存されているsample.csvファイルをbyteで取得する
+//            bytes = userService.getFile("sample.csv");
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        //HTTPヘッダーの設定
+//        HttpHeaders header = new HttpHeaders();
+//        header.add("Content-Type", "text/csv; charset=UTF-8");
+//        header.setContentDispositionFormData("filename", "sample.csv");
+//
+//        //sample.csvを戻す
+//        return new ResponseEntity<>(bytes, header, HttpStatus.OK);
+//    }
 
     /**
      * アドミン権限専用画面のGET用メソッド.

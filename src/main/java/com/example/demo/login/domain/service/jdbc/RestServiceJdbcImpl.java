@@ -39,7 +39,7 @@ public class RestServiceJdbcImpl implements RestService {
     //１件検索用メソッド
     @Override
     public User selectOne(String userId) {
-        return dao.selectOne(userId);
+        return dao.selectAll(userId);
     }
 
     //全件検索用メソッド

@@ -16,7 +16,7 @@ import com.example.demo.login.domain.repository.UserConsultationDao;
 
 //import com.example.demo.login.domain.service.Consultations;
 
-@Repository
+@Repository("UserConsultationDaoJdbcImpl")
 public class UserConsultationDaoJdbcImpl implements UserConsultationDao {
 	
 	@Autowired
@@ -75,32 +75,32 @@ public class UserConsultationDaoJdbcImpl implements UserConsultationDao {
 
 				return list;
 				}
-
-	@Override
-	public UserConsultation getOne(UserConsultation userconsultation) {
-		String sql = "SELECT title,content FROM consultations";
-//				+ " user_name = '"+userconsultation.getUserName()+"' AND "
-//				+ " title = '"+userconsultation.getTitle()+"' AND "
-//        		+ "content = '"+userconsultation.getContent()+"'";
-				
-              
-
-		List<Map<String,Object>> resultList = jdbc.queryForList(sql);
-		List<UserConsultation> list1 = new ArrayList<UserConsultation>();
-		for(Map<String,Object> result1 : resultList) {
-		
-			
-		//SQLから取ってきた値を型変換
-			UserConsultation userConsultation = new UserConsultation();
-			userConsultation.setTitle((String)result1.get("title"));;
-			userConsultation.setContent((String)result1.get("content"));;
-			
-			
-			System.out.println(result1.get("title"));	
-		}
-
-		return userconsultation;
-	}
+//
+//	@Override
+//	public UserConsultation getOne(UserConsultation userconsultation) {
+//		String sql = "SELECT title,content FROM consultations";
+////				+ " user_name = '"+userconsultation.getUserName()+"' AND "
+////				+ " title = '"+userconsultation.getTitle()+"' AND "
+////        		+ "content = '"+userconsultation.getContent()+"'";
+//				
+//              
+//
+//		List<Map<String,Object>> resultList = jdbc.queryForList(sql);
+//		List<UserConsultation> list1 = new ArrayList<UserConsultation>();
+//		for(Map<String,Object> result1 : resultList) {
+//		
+//			
+//		//SQLから取ってきた値を型変換
+//			UserConsultation userConsultation = new UserConsultation();
+//			userConsultation.setTitle((String)result1.get("title"));;
+//			userConsultation.setContent((String)result1.get("content"));;
+//			
+//			
+//			System.out.println(result1.get("title"));	
+//		}
+//
+//		return userconsultation;
+//	}
 
 
 	
