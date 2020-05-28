@@ -13,7 +13,7 @@ import com.example.demo.login.domain.model.UserAnswer;
 import com.example.demo.login.domain.model.UserConsultation;
 import com.example.demo.login.domain.repository.UserAnswerDao;
 
-@Repository
+@Repository("UserAnswerDaoJdbcImpl")
 public class UserAnswerDaoJdbcImpl implements UserAnswerDao {
 	
 	@Autowired
@@ -43,9 +43,6 @@ public class UserAnswerDaoJdbcImpl implements UserAnswerDao {
 				
 		 
 		List<Map<String,Object>>  sqlList = jdbc.queryForList(sql);
-		
-		
-		
 		
 		List<Map<String,Object>> resultList = jdbc.queryForList(sql);
 		List<UserAnswer> list = new ArrayList<UserAnswer>();

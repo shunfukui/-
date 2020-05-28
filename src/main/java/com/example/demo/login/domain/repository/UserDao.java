@@ -27,7 +27,7 @@ public interface UserDao {
     public int updateOne(User user) throws DataAccessException;
 
     // Userテーブルを１件削除.
-    public int deleteOne(String userId) throws DataAccessException;
+    public int deleteOne(String user) throws DataAccessException;
 
 //    //SQL取得結果をサーバーにCSVで保存する
 //    public void userCsvOut() throws DataAccessException;

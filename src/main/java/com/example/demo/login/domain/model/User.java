@@ -14,4 +14,26 @@ public class User {
     private String password; //パスワード
     private boolean license; //資格有無
     private String role; //ロール
+    
+    public User(String userName,boolean sex,int age,String mailAddress,String password,boolean license,String role){
+		
+		this.userName = userName;
+		this.sex = sex;
+		this.age = age;
+		this.mailAddress = mailAddress;
+		this.password = password;
+		this.license = license;
+		this.role = role;
+	}
+    
+	public User(String mailAddress) {
+		
+		this.mailAddress = mailAddress;
+		
+	}
+	    
+
+	public User() {
+		
+	}
 }

@@ -1,11 +1,9 @@
 package com.example.demo;
 
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,23 +61,25 @@ public class UserConsultationDaoTest {
 		userConsultation.setTitle("熱があります");
 		userConsultation.setContent("病院に行った方が良いでしょうか");
 
-		equals(dao.insertOne(userConsultation));}
+		
+		assertEquals(dao.insertOne(userConsultation),1);
+		}
+		
 	
-	
+		
 	@Test
 	@Sql("/testdata.sql")
 	public void getAllTest(){
 		
-		String sql = "SELECT * FROM consultations";
-		List<Map<String,Object>> resultList = jdbc.queryForList(sql);
-		List<UserConsultation> list = new ArrayList<UserConsultation>();
-		for(Map<String,Object> result : resultList) {
-			UserConsultation userConsultation = new UserConsultation();
-			userConsultation.setUserName((String)result.get("user_name"));;
-			userConsultation.setTitle((String)result.get("title"));;
-			userConsultation.setContent((String)result.get("content"));;
-			list.add(userConsultation);
+		List<UserConsultation> list = dao.getAll();
+
+		//Test equals
+        assertThat(list, hasItems(
+        	new UserConsultation("熱があります", "病院に行った方が良いでしょうか"),
+        	new UserConsultation("熱があります", "病院に行った方が良いでしょうか")
+                 
+        ));
+	
 		}
-		equals(dao.getAll());}
 	}
 

@@ -13,6 +13,6 @@ VALUES('熱があります','病院に行った方が良いでしょうか');
 
 
 /* 回答テーブルのデータ */  
-INSERT INTO answers (content)
-VALUES('病院に行き、薬を飲み、安静にしていましょう');
-VALUES('薬局に行き、薬をもらいましょう');
+INSERT INTO answers (user_name,title,content)
+VALUES('福井隼','熱があります','病院に行き、薬を飲み、安静にしていましょう');
+VALUES('あああ','いいい','薬局に行き、薬をもらいましょう');
