@@ -46,7 +46,7 @@ public class UserDaoTest {
 		user.setMailAddress("shun@gmail.com");
 		user.setPassword("$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa");
 		user.setLicense(true);
-		user.setRole("ROLE_GENERA");
+		user.setRole("ROLE_GENERAL");
 	   
 		assertEquals(dao.insertOne(user),1);
 		}

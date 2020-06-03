@@ -31,7 +31,8 @@ public class User {
 		this.mailAddress = mailAddress;
 		
 	}
-	    
+	
+	
 
 	public User() {
 		

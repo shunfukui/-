@@ -34,25 +34,10 @@ UserConsultation userConsultation;
 UserService userService;
 
 
-
-
-	
 	@Autowired
 	public ConsultationController(UserConsultationService userConsultationService) {
 		this.userConsultationService = userConsultationService;
 	}
-	
-//	@GetMapping("/gohome")
-//	public String consultations(Model model) {
-//		List<UserConsultation> list = userConsultationService.getAll();
-//
-//		model.addAttribute("consultationsList", list);
-//		model.addAttribute("title", "home");
-//		
-//		
-//		return "login/home";
-//	}
-
 	
 	@GetMapping("/consultation")
     public String getconsultation(ConsultationForm consultationForm,
@@ -81,11 +66,11 @@ UserService userService;
 		 ConsultationForm nameList2 = new ConsultationForm();
 	
 		 nameList2.setUserName(myName); //ユーザー名
-
+		 
+		 
 		 model.addAttribute("consultationForm", nameList2);
 		 
-		 
-		
+
 			return "login/consultation";
 	}
 		
@@ -135,7 +120,6 @@ UserService userService;
     
 		boolean userConsultation  = userConsultationService.insert(form);
 		 model.addAttribute("registration", "相談内容登録");
-		 
 		 
 		redirectAttributes.addFlashAttribute("userName", consultationForm.getUserName());
 		redirectAttributes.addFlashAttribute("complete", "投稿完了");

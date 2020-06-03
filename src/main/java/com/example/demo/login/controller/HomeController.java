@@ -166,7 +166,6 @@ public class HomeController {
             //更新実行
             boolean result = userService.updateOne(user);
 
-           
             model.addAttribute("result", "更新成功");
            
         } catch(DataAccessException e) {

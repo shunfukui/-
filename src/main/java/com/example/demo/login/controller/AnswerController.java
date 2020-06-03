@@ -96,8 +96,8 @@ public class AnswerController {
 				 
 				UserConsultation list1 = new UserConsultation();
 				list1.setUserName(form1); //ユーザー名
-		         list1.setTitle(form2); //タイトル
-		         list1.setContent(form3); //内容
+		        list1.setTitle(form2); //タイトル
+		        list1.setContent(form3); //内容
 		         
 				List<UserAnswer> list = userAnswerService.getOne(form);
 				
