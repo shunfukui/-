@@ -153,8 +153,9 @@ public class HomeControllerTest {
     @WithMockUser
     public void postLogoutTest() throws Exception {
     	
-    	mockMvc.perform(post("/login"))
-    		.andExpect(redirectedUrl("/login"));
+    	mockMvc.perform(post("/logout"))
+    		.andExpect(redirectedUrl("redirect:/login"));
+    	
     }
     
     @Test

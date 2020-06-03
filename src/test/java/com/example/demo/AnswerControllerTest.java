@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+
 import java.util.List;
 
 import org.junit.Test;
@@ -20,11 +21,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.example.demo.login.domain.model.AnswerForm;
 import com.example.demo.login.domain.model.UserAnswer;
-import com.example.demo.login.domain.model.UserConsultation;
 import com.example.demo.login.domain.service.UserAnswerService;
 import com.example.demo.login.domain.service.UserConsultationService;
 
@@ -72,11 +71,7 @@ public class AnswerControllerTest {
 		String form2 = 	"タイトル";
 		String form3 = 	"内容";
 		
-		//変数list1に設定したフィールドの値を詰める
-		UserConsultation list1 = new UserConsultation();
-		list1.setUserName(form1); //ユーザー名
-		list1.setTitle(form2); //タイトル
-		list1.setContent(form3); //内容
+		
 		
 		//answerFormをインスタンス化して回答（answerContent）を設定する
 		AnswerForm answerForm = new AnswerForm();
@@ -97,6 +92,7 @@ public class AnswerControllerTest {
 //	        .andExpect(model().attribute("answerForm", answerForm))    	
 //	        .andExpect(view().name("answer"));
     }
+	
 	
 	@Test
     //@WithMockUserアノテーションをメソッドに付ければ、ログイン後の画面をテストできる。

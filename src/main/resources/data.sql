@@ -20,8 +20,8 @@ VALUES('福井隼', 'true', 29,'shun@gmail.com','$2a$10$xRTXvpMWly0oGiu65WZlm.3Y
 
 
 /* 相談テーブルのデータ */  
-INSERT INTO consultations (title,content)
-VALUES('熱があります','病院に行った方が良いでしょうか');
+INSERT INTO consultations (user_name,title,content)
+VALUES('福井隼','熱があります','病院に行った方が良いでしょうか');
 
 
 
