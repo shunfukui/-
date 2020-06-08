@@ -31,9 +31,7 @@ public class UserConsultationDaoJdbcImpl implements UserConsultationDao {
         int count = jdbc.queryForObject("SELECT COUNT(*) FROM consultations WHERE "
         		+ " title = '"+userConsultation.getTitle()+"' AND "
         		+ "content = '"+userConsultation.getContent()+"'",
-                
-                
-                
+       
          Integer.class);
 
         return count;
@@ -74,36 +72,7 @@ public class UserConsultationDaoJdbcImpl implements UserConsultationDao {
 				}	
 
 				return list;
-				}
-//
-//	@Override
-//	public UserConsultation getOne(UserConsultation userconsultation) {
-//		String sql = "SELECT title,content FROM consultations";
-////				+ " user_name = '"+userconsultation.getUserName()+"' AND "
-////				+ " title = '"+userconsultation.getTitle()+"' AND "
-////        		+ "content = '"+userconsultation.getContent()+"'";
-//				
-//              
-//
-//		List<Map<String,Object>> resultList = jdbc.queryForList(sql);
-//		List<UserConsultation> list1 = new ArrayList<UserConsultation>();
-//		for(Map<String,Object> result1 : resultList) {
-//		
-//			
-//		//SQLから取ってきた値を型変換
-//			UserConsultation userConsultation = new UserConsultation();
-//			userConsultation.setTitle((String)result1.get("title"));;
-//			userConsultation.setContent((String)result1.get("content"));;
-//			
-//			
-//			System.out.println(result1.get("title"));	
-//		}
-//
-//		return userconsultation;
-//	}
-
-
-	
+	}	
 }
 
 

@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(100),
     license BOOLEAN,
     role VARCHAR(50),
+    is_deleted BOOLEAN DEFAULT false,
     PRIMARY KEY (user_name)
 );
 
@@ -43,4 +44,5 @@ CREATE TABLE IF NOT EXISTS answers (
     user_name VARCHAR(30),
     CONSTRAINT FK__answers__user_name FOREIGN KEY(user_name) REFERENCES users(user_name) 
 );
+
 

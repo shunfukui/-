@@ -88,8 +88,8 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public List<User> selectMany() throws DataAccessException {
 
-        // M_USERテーブルのデータを全件取得
-        List<Map<String, Object>> getList = jdbc.queryForList("SELECT * FROM users");
+        // USERテーブルのデータを全件取得
+        List<Map<String, Object>> getList = jdbc.queryForList("SELECT * FROM users WHERE　NOT is_deleted = true");
 
         // 結果返却用の変数
         List<User> userList = new ArrayList<>();
@@ -138,14 +138,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 user.getMailAddress(),
                 user.isLicense(),
                 user.getUserName());
-                
-
-        //トランザクション確認のため、わざと例外をthrowする
-        //        if (rowNumber > 0) {
-        //            throw new DataAccessException("トランザクションテスト") {
-        //            };
-        //        }
-
+               
         return rowNumber;
     }
 
@@ -153,25 +146,16 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public int deleteOne(String userName) throws DataAccessException {
 
-        //１件削除
-        int rowNumber = jdbc.update("DELETE FROM users WHERE user_name = ?", userName);
+        
+    	//UPDATE 更新したいテーブル名
+    	//WHERE 抽出したい行に関する条件 user_nameとis_deletedがfalse
+    	//SET 更新する列名と値を記述 false（削除されていない状態)をtrue(削除された状態)に更新する
+        int rowNumber = jdbc.update("UPDATE users SET is_deleted = true WHERE user_name = ? ", userName);
 
         return rowNumber;
+        //取得する処理
     }
 
-//    //SQL取得結果をサーバーにCSVで保存する
-//    @Override
-//    public void userCsvOut() throws DataAccessException {
-//
-//        // M_USERテーブルのデータを全件取得するSQL
-//        String sql = "SELECT * FROM users";
-//
-//        // ResultSetExtractorの生成
-//        UserRowCallbackHandler handler = new UserRowCallbackHandler();
-//
-//        //SQL実行＆CSV出力
-//        jdbc.query(sql, handler);
-//    }
 
 	@Override
 	public String selectName(String mailAddress) throws DataAccessException {

@@ -1,16 +1,11 @@
 package com.example.demo.login.controller;
 
-import java.io.IOException;
-import java.security.Principal;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -180,7 +175,8 @@ public class HomeController {
     /**
      * ユーザー削除用処理.
      */
-    @PostMapping(value = "/userDetail", params = "delete")
+    //URLは同じだけどpramsが別の時に処理を分けることができる
+    @PostMapping(value = "/userDetail" ,params = "delete")
     public String postUserDetailDelete(@ModelAttribute SignupForm form,
             Model model) {
 
@@ -210,38 +206,10 @@ public class HomeController {
     public String postLogout() {
 
         //ログイン画面にリダイレクト
-        return "redirect:/login";
+        return "login";
     }
 
-    /**
-     * ユーザー一覧のCSV出力用処理.
-     */
-//    @GetMapping("/myPage/csv")
-//    public ResponseEntity<byte[]> getMyPageCsv(Model model) {
-//
-//        //ユーザーを全件取得して、CSVをサーバーに保存する
-//        userService.userCsvOut();
-//
-//        byte[] bytes = null;
-//
-//        try {
-//
-//            //サーバーに保存されているsample.csvファイルをbyteで取得する
-//            bytes = userService.getFile("sample.csv");
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        //HTTPヘッダーの設定
-//        HttpHeaders header = new HttpHeaders();
-//        header.add("Content-Type", "text/csv; charset=UTF-8");
-//        header.setContentDispositionFormData("filename", "sample.csv");
-//
-//        //sample.csvを戻す
-//        return new ResponseEntity<>(bytes, header, HttpStatus.OK);
-//    }
-
+ 
     /**
      * アドミン権限専用画面のGET用メソッド.
      * @param model Modelクラス

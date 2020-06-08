@@ -30,22 +30,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // ユーザーIDとパスワードを取得するSQL文
     private static final String USER_SQL = "SELECT"
-            + "    mail_address,"
-            + "    password,"
-            + "    true"
+            + " mail_address,"
+            + " password,"
+            + " true"
             + " FROM"
-            + "    users"
+            + " users"
             + " WHERE"
-            + "    mail_address = ?";
+            + " mail_address = ?"
+            + " AND"
+            + " is_deleted = false";
+    		
 
     // ユーザーのロールを取得するSQL文
     private static final String ROLE_SQL = "SELECT"
-            + "    mail_address,"
-            + "    role"
+            + " mail_address,"
+            + " role"
             + " FROM"
-            + "    users"
+            + " users"
             + " WHERE"
-            + "    mail_address = ?";
+            + " mail_address = ?"
+            + " AND"
+            + " is_deleted = false";
 
     @Override
     public void configure(WebSecurity web) throws Exception {

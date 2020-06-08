@@ -86,13 +86,11 @@ public class AnswerController {
 		 form.setUserName(answerForm.getUserName()); // 
 		 form.setTitle(answerForm.getTitle()); //
 		 form.setAnswerContent(answerForm.getAnswerContent()); //
-	    	
 	    		
 			if(result.hasErrors()) {
 				model.addAttribute("title", "answer");
 				
 				UserAnswer userAnswer = new UserAnswer();
-				 
 				 
 				UserConsultation list1 = new UserConsultation();
 				list1.setUserName(form1); //ユーザー名
@@ -107,13 +105,13 @@ public class AnswerController {
 			}
 			boolean userAnswer  = userAnswerService.insert(form);
 			 model.addAttribute("registration", "回答登録");
-			 
 			
 			 redirectAttributes.addFlashAttribute("userName", answerForm.getUserName());
 			 redirectAttributes.addFlashAttribute("title", answerForm.getTitle());
 			 redirectAttributes.addFlashAttribute("content", answerForm.getContent());
+			 redirectAttributes.addFlashAttribute("answerContent", answerForm.getAnswerContent());
 			
-			redirectAttributes.addFlashAttribute("complete", "投稿完了");
+			
 			return "redirect:/answer";
 	    }
 
