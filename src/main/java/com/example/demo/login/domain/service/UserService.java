@@ -100,7 +100,6 @@ public class UserService {
 
         // １件削除
         int rowNumber = dao.deleteOne(userName);
-
         // 判定用変数
         boolean result = false;
 

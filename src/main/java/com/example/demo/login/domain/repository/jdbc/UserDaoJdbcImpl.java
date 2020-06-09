@@ -73,13 +73,14 @@ public class UserDaoJdbcImpl implements UserDao {
         User user = new User();
 
         // 取得したデータを結果返却用の変数にセットしていく
-        user.setUserName((String) map.get("user_name")); //名前
-        user.setSex((Boolean) map.get("sex")); //性別
-        user.setAge((Integer) map.get("age")); //年齢
+        user.setUserName((String) map.get("user_name"));       //名前
+        user.setSex((Boolean) map.get("sex"));                 //性別
+        user.setAge((Integer) map.get("age"));                 //年齢
         user.setMailAddress((String) map.get("mail_address")); //メールアドレス
-        user.setPassword((String) map.get("password")); //パスワード
-        user.setLicense((Boolean) map.get("license")); //資格有無
-        user.setRole((String) map.get("role")); //ロール
+        user.setPassword((String) map.get("password"));        //パスワード
+        user.setLicense((Boolean) map.get("license"));         //資格有無
+        user.setRole((String) map.get("role"));                //ロール
+        user.setDeleted((Boolean) map.get("is_deleted"));    
 
         return user;
     }
@@ -150,7 +151,9 @@ public class UserDaoJdbcImpl implements UserDao {
     	//UPDATE 更新したいテーブル名
     	//WHERE 抽出したい行に関する条件 user_nameとis_deletedがfalse
     	//SET 更新する列名と値を記述 false（削除されていない状態)をtrue(削除された状態)に更新する
-        int rowNumber = jdbc.update("UPDATE users SET is_deleted = true WHERE user_name = ? ", userName);
+        int rowNumber = jdbc.update("UPDATE USERS "
+        		                  + " SET is_deleted = ?"
+        		                  + " WHERE user_name = ?", true, userName);
 
         return rowNumber;
         //取得する処理

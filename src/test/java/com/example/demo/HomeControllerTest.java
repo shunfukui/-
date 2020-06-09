@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ import com.example.demo.login.domain.repository.UserDao;
 import com.example.demo.login.domain.service.UserConsultationService;
 import com.example.demo.login.domain.service.UserService;
 
+import io.florianlopes.spring.test.web.servlet.request.MockMvcRequestBuilderUtils;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 //@AutoConfigureMockMvcアノテーションをクラスに付ければ、Springが用意するモックを使用できる。
@@ -47,160 +50,73 @@ public class HomeControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    UserConsultationService userConsultationService;
-    @Autowired
     UserService userService;
-    @MockBean
-    private UserService service;
-    @MockBean
-    private UserConsultationService service1;
-    
-   
-    
-    
-    @Test
-    //@WithMockUserアノテーションをメソッドに付ければ、ログイン後の画面をテストできる。
-    @WithMockUser
-    public void getHomeTest() throws Exception {
-    	
-    	// listを持ってくる
-    	List<UserConsultation> list = userConsultationService.getAll();
-    	
-    	//GETリクエストを送る、ホーム画面を取得
-        mockMvc.perform(get("/home"))
-     
-        	//modelに正しい変数を詰められているか？
-            .andExpect(model().attribute("consultationsList", list));
+
+    @Before
+    public void setUp() throws Exception {
+        //@sqlアノテーションで指定したsqlファイルによってセットアップを実行するため、処理なし
     }
     
-    @Test
+
     //@WithMockUserアノテーションをメソッドに付ければ、ログイン後の画面をテストできる。
-    @WithMockUser
-    public void getMyPageTest() throws Exception {
-    	
-    	List<User> myPage = userService.selectMany();
-    	
-    	//GETリクエストを送る、画面を取得
-        mockMvc.perform(get("/myPage"))
-     
-        	//modelに正しい変数を詰められているか？
-            .andExpect(model().attribute("myPage", myPage));
-    }
-        
-    @Test
+//    @Test
+//    @Sql("/testdata.sql")
+//    @WithMockUser
+//    public void getUserDetailTest() throws Exception {
+//    	
+//    	String userName = "ddd";
+//    	
+//  
+//    	// ユーザー情報を取得
+//        User user = userService.selectOne(userName);
+//        // SignupForm型のformをインスタンス生成
+//        SignupForm form = new SignupForm();
+//        
+//        // Userクラスをフォームクラスに詰め替え
+//        form.setUserName(user.getUserName()); //ユーザー名
+//        form.setSex(user.isSex()); //性別
+//        form.setAge(user.getAge()); //年齢
+//        form.setMailAddress(user.getMailAddress()); //メールアドレス
+//        form.setPassword(user.getPassword()); //パスワード
+//        form.setLicense(user.isLicense()); //資格有無
+//        	
+//        //GETリクエストを送る、画面を取得
+//        mockMvc.perform(get("/userDetail/ddd"))
+//      
+//           //modelに正しい変数を詰められているか？
+//           .andExpect(model().attribute("signupForm", form));
+//        
+//    }
+
     //@WithMockUserアノテーションをメソッドに付ければ、ログイン後の画面をテストできる。
+    @Test
+    @Sql("/testdata.sql")
     @WithMockUser
-    public void getUserDetailTest() throws Exception {
+    public void postUserDetailDeleteTest() throws Exception {
     	
-    	String userName = "福井隼";
     	
-  
+    	String userName = "ddd";
     	// ユーザー情報を取得
         User user = userService.selectOne(userName);
         // SignupForm型のformをインスタンス生成
         SignupForm form = new SignupForm();
-        
-        // Userクラスをフォームクラスに詰め替え
         form.setUserName(user.getUserName()); //ユーザー名
         form.setSex(user.isSex()); //性別
         form.setAge(user.getAge()); //年齢
         form.setMailAddress(user.getMailAddress()); //メールアドレス
         form.setPassword(user.getPassword()); //パスワード
         form.setLicense(user.isLicense()); //資格有無
-        	
-        //GETリクエストを送る、画面を取得
-        mockMvc.perform(get("/userDetail/福井隼"))
-      
-           //modelに正しい変数を詰められているか？
-           .andExpect(model().attribute("signupForm", form));
-        
-    }
-    
-    @Test
-    //@WithMockUserアノテーションをメソッドに付ければ、ログイン後の画面をテストできる。
-    @WithMockUser
-    @Sql("/testdata.sql")
-    public void postUserDetailDeleteTest() throws Exception {
-    	
-    	
-    	//SingnupForm型の変数formをインスタンス生成
-    	SignupForm form = new SignupForm();
-    	form.setUserName("aaa");
-    	
-    	
-    	
-    	 boolean service = userService.deleteOne("aaa");
-    	 
-    	 assertEquals(service,true);
-    	//userDetailにリクエストを実行
-//    	mockMvc.perform((post("/userDetail?delete="))
-//    			
-//    			//postの際はつける
-//    			.with(SecurityMockMvcRequestPostProcessors.csrf())
-//    			
-//    			//引数のSignupForm型のformをセット
-//    			.flashAttr("form", form ))
-//    			
-//    			//result,削除成功と言うキーバリューが渡せているかの検証
-//    			.andExpect(model().attribute("result", "削除成功"));
-    }
-    
-    
-    
-    
-    @Test
-    //@WithMockUserアノテーションをメソッドに付ければ、ログイン後の画面をテストできる。
-    @WithMockUser
-    public void postUserDetailDeleteErrorTest() throws Exception {
-    	
-    	//SingnupForm型の変数formをインスタンス生成
-    	SignupForm form = new SignupForm();
-    	form.setUserName("福井隼");
-
-    	//boolean型の変数resultにfalseを代入
-    	boolean result = false;   
-    	
-    	//userDetailにリクエストを実行
-    	mockMvc.perform((post("/userDetail?delete="))
-    			
+   	
+//    	userDetailにリクエストを実行.perform((post("/userDetail?delete"))
+    	mockMvc.perform((MockMvcRequestBuilderUtils.postForm("/userDetail?delete", form))
     			//postの際はつける
     			.with(SecurityMockMvcRequestPostProcessors.csrf())
-    	
     			//引数のSignupForm型のformをセット
-    			.flashAttr("form", form ))
-    			
+    			.requestAttr("form", form ))
     			//result,削除成功と言うキーバリューが渡せているかの検証
-    			.andExpect(model().attribute("result", "削除失敗"));
+    			.andExpect(model().attribute("result", "削除成功"));
+    					
+    	User user2 = userService.selectOne(userName);
+    	System.out.println(user2.getUserName());
     }
-    
-    @Test
-    //@WithMockUserアノテーションをメソッドに付ければ、ログイン後の画面をテストできる。
-    @WithMockUser
-    public void postLogoutTest() throws Exception {
-    	
-    	//logoutにリクエストを実行
-    	mockMvc.perform((post("/logout"))
-    		
-    		//postの際はつける
-    		.with(SecurityMockMvcRequestPostProcessors.csrf()))
-	       
-		    //loginにリダイレクトできているか確認
-    		.andExpect(redirectedUrl("/login"));
-	       		
-    }
-    
-    @Test
-    public void postLogoutErrorTest() throws Exception {
-    	//logoutにリクエストを実行
-    	mockMvc.perform((post("/logout"))
-
-    		//postの際はつける
-        	.with(SecurityMockMvcRequestPostProcessors.csrf()))
-    		//ページを転送処理がしっかり行われているかをコード
-    		.andExpect(status().is(302))
-    		// /loguotでlogin.htmlを返すかを確認するコード
-    		.andExpect(view().name("login"));
-
-    }
-	
 }
