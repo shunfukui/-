@@ -136,12 +136,13 @@ public class HomeController {
 
         return "login/homeLayout";
     }
+    
 
     /**
      * ユーザー更新用処理.
      */
-    @PostMapping(value = "/userDetail", params = "update")
-    public String postUserDetailUpdate(@ModelAttribute SignupForm form,
+    @PostMapping(value = "/userDetail/{name}", params = "update")
+    public String postUserDetailUpdate(@PathVariable("name") SignupForm form,
             Model model) {
 
         System.out.println("更新ボタンの処理");
@@ -176,14 +177,14 @@ public class HomeController {
      * ユーザー削除用処理.
      */
     //URLは同じだけどpramsが別の時に処理を分けることができる
-    @PostMapping(value = "/userDetail" ,params = "delete")
-    public String postUserDetailDelete(@ModelAttribute SignupForm form,
+    @PostMapping(value = "/userDetail/{name}" ,params = "delete")
+    public String postUserDetailDelete(@PathVariable("name") String userName,
             Model model) {
 
         System.out.println("削除ボタンの処理");
 
         //削除実行
-        boolean result = userService.deleteOne(form.getUserName());
+        boolean result = userService.deleteOne(userName);
 
         if (result == true) {
 

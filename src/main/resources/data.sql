@@ -18,7 +18,7 @@ VALUES('tamura@xxx.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Q
 INSERT INTO users (user_name,sex,age,mail_address,password,license,role,is_deleted)
 VALUES('福井隼', 'true', 29,'shun@gmail.com','$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa',true,'ROLE_GENERAL','false');
 INSERT INTO users (user_name,sex,age,mail_address,password,license,role,is_deleted)
-VALUES('aaaa', 'true', 10,'aaaa@gmail.com','$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa',true,'ROLE_GENERAL','false');
+VALUES('aaa', 'true', 10,'aaaa@gmail.com','$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa',true,'ROLE_GENERAL','false');
 
 
 
