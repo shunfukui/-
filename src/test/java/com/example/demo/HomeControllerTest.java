@@ -38,6 +38,8 @@ import com.example.demo.login.domain.repository.UserDao;
 import com.example.demo.login.domain.service.UserConsultationService;
 import com.example.demo.login.domain.service.UserService;
 
+import io.florianlopes.spring.test.web.servlet.request.MockMvcRequestBuilderUtils;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 //@AutoConfigureMockMvcアノテーションをクラスに付ければ、Springが用意するモックを使用できる。
@@ -54,7 +56,6 @@ public class HomeControllerTest {
     @MockBean
     private UserConsultationService service1;
     //メソッドごとにつけるアノテーションではなく、クラス単位で1つ
-    
     
    
     
@@ -142,12 +143,13 @@ public class HomeControllerTest {
         user.setLicense(form.isLicense()); //資格有無
         
         //userDetailにリクエストを実行.perform((post("/userDetail?delete"))
-    	mockMvc.perform((post("/userDetail/"+ userName +"?delete"))
+//        post("/userDetail/"+ userName +"?delete")
+    	mockMvc.perform((MockMvcRequestBuilderUtils.postForm("/userDetai?delete", form))
     			//postの際はつける
-    			.with(SecurityMockMvcRequestPostProcessors.csrf())
+    			.with(SecurityMockMvcRequestPostProcessors.csrf()))
     			
     			//引数のSignupForm型のformをセット
-    			.flashAttr("form", form ))
+//    			.flashAttr("form", form ))
     			
     			//result,削除成功と言うキーバリューが渡せているかの検証
     			.andExpect(model().attribute("result", "更新成功"));
@@ -167,11 +169,12 @@ public class HomeControllerTest {
     
     
     
-    
+
     
     
     //@WithMockUserアノテーションをメソッドに付ければ、ログイン後の画面をテストできる。
     @Test
+    @Sql("/testdata.sql")
     @WithMockUser
     public void postUserDetailDeleteTest() throws Exception {
     
@@ -180,6 +183,13 @@ public class HomeControllerTest {
         User user = userService.selectOne(userName);
         // SignupForm型のformをインスタンス生成
         SignupForm form = new SignupForm();
+        //フォームクラスをUserクラスに変換
+        user.setUserName(form.getUserName()); //ユーザー名
+        user.setSex(form.isSex()); //性別
+        user.setAge(form.getAge()); //年齢
+        user.setMailAddress(form.getMailAddress()); //メールアドレス
+        user.setPassword(form.getPassword()); //パスワード
+        user.setLicense(form.isLicense()); //資格有無
        
         //userDetailにリクエストを実行.perform((post("/userDetail?delete"))
     	mockMvc.perform((post("/userDetail/"+ userName +"?delete"))
@@ -195,7 +205,6 @@ public class HomeControllerTest {
     	User user2 = userService.selectOne(userName);
     	System.out.println(user2.getUserName());
     }
-    
     
     
     
@@ -253,5 +262,4 @@ public class HomeControllerTest {
     		
 
     }
-	
 }

@@ -177,14 +177,14 @@ public class HomeController {
      * ユーザー削除用処理.
      */
     //URLは同じだけどpramsが別の時に処理を分けることができる
-    @PostMapping(value = "/userDetail/{name}" ,params = "delete")
-    public String postUserDetailDelete(@PathVariable("name") String userName,
+    @PostMapping(value = "/userDetail" ,params = "delete")
+    public String postUserDetailDelete(@ModelAttribute SignupForm form,
             Model model) {
 
         System.out.println("削除ボタンの処理");
 
         //削除実行
-        boolean result = userService.deleteOne(userName);
+        boolean result = userService.deleteOne(form.getUserName());
 
         if (result == true) {
 
