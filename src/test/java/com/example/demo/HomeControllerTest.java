@@ -124,17 +124,19 @@ public class HomeControllerTest {
     @WithMockUser
     public void postUserDetailUpdateTest() throws Exception {
     	
-    	String userName = "ddd";
-
-    	//Userインスタンスの生成
-    	User user = new User();
     	// SignupForm型のformをインスタンス生成
         SignupForm form = new SignupForm();
+        form.setUserName("ddd");
+        form.setSex(true);
+        form.setAge(29);
+        form.setMailAddress("shun@gmail.com");
+        form.setPassword("$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa");
+        form.setLicense(true);
         
-        // ユーザー情報を取得
-        boolean result = userService.updateOne(user);
-
-        //フォームクラスをUserクラスに変換
+        //Userインスタンスの生成
+        User user = new User();
+        
+        //user型にform型を詰め替える
         user.setUserName(form.getUserName()); //ユーザー名
         user.setSex(form.isSex()); //性別
         user.setAge(form.getAge()); //年齢
@@ -142,19 +144,16 @@ public class HomeControllerTest {
         user.setPassword(form.getPassword()); //パスワード
         user.setLicense(form.isLicense()); //資格有無
         
+        
+        boolean result = userService.updateOne(user);
+        
         //userDetailにリクエストを実行.perform((post("/userDetail?delete"))
-//        post("/userDetail/"+ userName +"?delete")
-    	mockMvc.perform((MockMvcRequestBuilderUtils.postForm("/userDetai?delete", form))
+    	mockMvc.perform((MockMvcRequestBuilderUtils.postForm("/userDetail?update", user))
     			//postの際はつける
     			.with(SecurityMockMvcRequestPostProcessors.csrf()))
     			
-    			//引数のSignupForm型のformをセット
-//    			.flashAttr("form", form ))
-    			
     			//result,削除成功と言うキーバリューが渡せているかの検証
     			.andExpect(model().attribute("result", "更新成功"));
-    
-    	
     }
     
     
@@ -163,7 +162,37 @@ public class HomeControllerTest {
     @Test
     @WithMockUser
     public void postUserDetailUpdateErrorTest() throws Exception {
-    
+    	
+    	// SignupForm型のformをインスタンス生成
+        SignupForm form = new SignupForm();
+        form.setUserName("fef");
+        form.setSex(true);
+        form.setAge(30);
+        form.setMailAddress("fff@gmail.com");
+        form.setPassword("$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa");
+        form.setLicense(true);
+       
+        //Userインスタンスの生成
+        User user = new User();
+        
+        //user型にform型を詰め替える
+        user.setUserName(form.getUserName()); //ユーザー名
+        user.setSex(form.isSex()); //性別
+        user.setAge(form.getAge()); //年齢
+        user.setMailAddress(form.getMailAddress()); //メールアドレス
+        user.setPassword(form.getPassword()); //パスワード
+        user.setLicense(form.isLicense()); //資格有無
+        
+        
+        boolean result = userService.updateOne(user);
+        
+        //userDetailにリクエストを実行.perform((post("/userDetail?delete"))
+    	mockMvc.perform((MockMvcRequestBuilderUtils.postForm("/userDetail?update", user))
+    			//postの際はつける
+    			.with(SecurityMockMvcRequestPostProcessors.csrf()))
+    			
+    			//result,削除失敗と言うキーバリューが渡せているかの検証
+    			.andExpect(model().attribute("result", "更新失敗(トランザクションテスト)"));
     	
     }
     
@@ -174,7 +203,6 @@ public class HomeControllerTest {
     
     //@WithMockUserアノテーションをメソッドに付ければ、ログイン後の画面をテストできる。
     @Test
-    @Sql("/testdata.sql")
     @WithMockUser
     public void postUserDetailDeleteTest() throws Exception {
     
@@ -184,20 +212,18 @@ public class HomeControllerTest {
         // SignupForm型のformをインスタンス生成
         SignupForm form = new SignupForm();
         //フォームクラスをUserクラスに変換
-        user.setUserName(form.getUserName()); //ユーザー名
-        user.setSex(form.isSex()); //性別
-        user.setAge(form.getAge()); //年齢
-        user.setMailAddress(form.getMailAddress()); //メールアドレス
-        user.setPassword(form.getPassword()); //パスワード
-        user.setLicense(form.isLicense()); //資格有無
+        form.setUserName(user.getUserName()); //ユーザー名
+        form.setSex(user.isSex()); //性別
+        form.setAge(user.getAge()); //年齢
+        form.setMailAddress(user.getMailAddress()); //メールアドレス
+        form.setPassword(user.getPassword()); //パスワード
+        form.setLicense(user.isLicense()); //資格有無
        
         //userDetailにリクエストを実行.perform((post("/userDetail?delete"))
-    	mockMvc.perform((post("/userDetail/"+ userName +"?delete"))
+    	mockMvc.perform((MockMvcRequestBuilderUtils.postForm("/userDetail?delete", form))
+    	
     			//postの際はつける
-    			.with(SecurityMockMvcRequestPostProcessors.csrf())
-    			
-    			//引数のSignupForm型のformをセット
-    			.flashAttr("form", form ))
+    			.with(SecurityMockMvcRequestPostProcessors.csrf()))
     			
     			//result,削除成功と言うキーバリューが渡せているかの検証
     			.andExpect(model().attribute("result", "削除成功"));
@@ -213,25 +239,29 @@ public class HomeControllerTest {
     @WithMockUser
     public void postUserDetailDeleteErrorTest() throws Exception {
     	
-    	String userName = "ddd";
+    	//登録してない名前を代入
+    	String userName = "aaa";
     	// ユーザー情報を取得
         User user = userService.selectOne(userName);
         // SignupForm型のformをインスタンス生成
         SignupForm form = new SignupForm();
-        
+        //フォームクラスをUserクラスに変換
+        form.setUserName(user.getUserName()); //ユーザー名
+        form.setSex(user.isSex()); //性別
+        form.setAge(user.getAge()); //年齢
+        form.setMailAddress(user.getMailAddress()); //メールアドレス
+        form.setPassword(user.getPassword()); //パスワード
+        form.setLicense(user.isLicense()); //資格有無
        
-   	
         //userDetailにリクエストを実行.perform((post("/userDetail?delete"))
-    	mockMvc.perform((post("/userDetail/"+ userName +"?delete"))
+    	mockMvc.perform((MockMvcRequestBuilderUtils.postForm("/userDetail?delete", form))
+    	
     			//postの際はつける
-    			.with(SecurityMockMvcRequestPostProcessors.csrf())
-    			
-    			//引数のSignupForm型のformをセット
-    			.flashAttr("form", form ))
+    			.with(SecurityMockMvcRequestPostProcessors.csrf()))
     			
     			//result,削除成功と言うキーバリューが渡せているかの検証
     			.andExpect(model().attribute("result", "削除成功"));
-    					
+    	
     }
     
     @Test

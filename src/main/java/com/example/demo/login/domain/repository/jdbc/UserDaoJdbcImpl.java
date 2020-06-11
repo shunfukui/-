@@ -150,10 +150,12 @@ public class UserDaoJdbcImpl implements UserDao {
     	//UPDATE 更新したいテーブル名
     	//WHERE 抽出したい行に関する条件 user_nameとis_deletedがfalse
     	//SET 更新する列名と値を記述 false（削除されていない状態)をtrue(削除された状態)に更新する
-        int rowNumber = jdbc.update("UPDATE users SET is_deleted = true WHERE user_name = ? ", userName);
+    	 int rowNumber = jdbc.update("UPDATE USERS "
+    	        	+ " SET is_deleted = ?"
+    	        	+ " WHERE user_name = ?", true, userName);
 
         return rowNumber;
-        //取得する処理
+       
     }
 
 

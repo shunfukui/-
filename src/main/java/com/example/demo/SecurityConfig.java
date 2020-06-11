@@ -102,7 +102,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // ログイン処理時のユーザー情報を、DBから取得する
         auth.jdbcAuthentication()
-                .dataSource(dataSource)
+        		.dataSource(dataSource)
                 .usersByUsernameQuery(USER_SQL)
                 .authoritiesByUsernameQuery(ROLE_SQL)
                 .passwordEncoder(passwordEncoder());

@@ -141,8 +141,8 @@ public class HomeController {
     /**
      * ユーザー更新用処理.
      */
-    @PostMapping(value = "/userDetail/{name}", params = "update")
-    public String postUserDetailUpdate(@PathVariable("name") SignupForm form,
+    @PostMapping(value = "/userDetail", params = "update")
+    public String postUserDetailUpdate(@ModelAttribute SignupForm form,
             Model model) {
 
         System.out.println("更新ボタンの処理");
@@ -187,15 +187,10 @@ public class HomeController {
         boolean result = userService.deleteOne(form.getUserName());
 
         if (result == true) {
-
             model.addAttribute("result", "削除成功");
-
         } else {
-
             model.addAttribute("result", "削除失敗");
-
         } 
-
         //ユーザー一覧画面を表示
         return getMyPage(model);
     }
@@ -205,7 +200,6 @@ public class HomeController {
      */
     @PostMapping("/logout")
     public String postLogout() {
-
         //ログイン画面にリダイレクト
         return "login";
     }
