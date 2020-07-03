@@ -1,7 +1,6 @@
 package com.example.demo.login.controller;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.demo.login.domain.model.AnswerForm;
 import com.example.demo.login.domain.model.ConsultationForm;
-import com.example.demo.login.domain.model.User;
-import com.example.demo.login.domain.model.UserAnswer;
 import com.example.demo.login.domain.model.UserConsultation;
 import com.example.demo.login.domain.service.UserConsultationService;
 import com.example.demo.login.domain.service.UserService;
@@ -89,6 +85,9 @@ UserService userService;
 			) {
 
 		if(result.hasErrors()) {
+			//引数を渡している
+			//@が付いている引数はフラッシュアトリビュートを使う
+			//それ以外はアドアトリビュート
 			redirectAttributes.addFlashAttribute("userName", consultationForm.getUserName());
 			model.addAttribute("title", "consultation");
 			return "redirect:consultation";

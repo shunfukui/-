@@ -3,7 +3,7 @@
 INSERT INTO users (user_name,sex,age,mail_address,password,license,role,is_deleted)
 VALUES('ddd', 'true', 29,'shun@gmail.com','$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa',true,'ROLE_GENERAL',false);
 INSERT INTO users (user_name,sex,age,mail_address,password,license,role,is_deleted)
-VALUES('ccc', 'true', 10,'aaaa@gmail.com','$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa',true,'ROLE_GENERAL',false);
+VALUES('ccc', 'true', 10,'aaa@gmail.com','$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa',true,'ROLE_GENERAL',false);
 INSERT INTO users (user_name,sex,age,mail_address,password,license,role,is_deleted)
 VALUES('fff', 'true', 30,'fff@gmail.com','$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa',true,'ROLE_GENERAL',false);
 

@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -26,11 +27,13 @@ public class SignupForm {
     private boolean sex; // 性別
     
     //値が20から100まで
+    
     @Min(value = 0, groups = ValidGroup2.class, message = "{min_check}")
     @Max(value = 100, groups = ValidGroup2.class, message = "{max_check}")
     private int age; // 年齢
 
     //必須入力、メールアドレス形式
+    @NotEmpty
     @NotBlank(groups = ValidGroup1.class, message = "{require_check}")
     @Email(groups = ValidGroup2.class, message = "{email_check}")
     private String mailAddress; // メールアドレス

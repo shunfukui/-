@@ -8,10 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.login.domain.model.SignupForm;
 import com.example.demo.login.domain.model.User;
@@ -142,14 +146,25 @@ public class HomeController {
      * ユーザー更新用処理.
      */
     @PostMapping(value = "/userDetail", params = "update")
-    public String postUserDetailUpdate(@ModelAttribute SignupForm form,
+    public String postUserDetailUpdate(@Validated @ModelAttribute SignupForm form,
+    		BindingResult result1,
+    		RedirectAttributes redirectAttributes,
+    		@RequestParam("name") String userName,
             Model model) {
 
+    	if(result1.hasErrors()) {
+    		
+    		redirectAttributes.addFlashAttribute("form", form);
+    		redirectAttributes.addFlashAttribute("name", form.getUserName());
+
+			return "redirect:/userDetail/{name}";	
+    	}
+    	
         System.out.println("更新ボタンの処理");
 
         //Userインスタンスの生成
         User user = new User();
-
+        
         //フォームクラスをUserクラスに変換
         user.setUserName(form.getUserName()); //ユーザー名
         user.setSex(form.isSex()); //性別
@@ -157,7 +172,9 @@ public class HomeController {
         user.setMailAddress(form.getMailAddress()); //メールアドレス
         user.setPassword(form.getPassword()); //パスワード
         user.setLicense(form.isLicense()); //資格有無
-
+        
+        
+        
         try {
             //更新実行
             boolean result = userService.updateOne(user);
@@ -165,10 +182,15 @@ public class HomeController {
             model.addAttribute("result", "更新成功");
            
         } catch(DataAccessException e) {
-
+        	
             model.addAttribute("result", "更新失敗(トランザクションテスト)");
         }
-
+        //if分　処理が落ちる
+        //try catch
+        //@トランザクショナル
+        //ロールバック
+        
+        
         //ユーザー一覧画面を表示
         return getMyPage(model);
     }

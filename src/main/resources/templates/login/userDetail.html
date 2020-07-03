@@ -22,8 +22,9 @@
                             <td>
                                 <div class="form-group"
                                     th:classappend="${#fields.hasErrors('userName')} ? 'has-error'">
-                                    <input type="text" class="form-control"
-                                        th:field="*{userName}" />
+                                   	<input type="hidden" class="form-control"
+                                        th:field="*{userName}">
+                                    <p th:text="*{userName}"></p>
                                     <span class="text-danger"
                                         th:if="${#fields.hasErrors('userName')}"
                                         th:errors="*{userName}">

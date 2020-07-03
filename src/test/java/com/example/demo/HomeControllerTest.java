@@ -187,7 +187,7 @@ public class HomeControllerTest {
         boolean result = userService.updateOne(user);
         
         //userDetailにリクエストを実行.perform((post("/userDetail?delete"))
-    	mockMvc.perform((MockMvcRequestBuilderUtils.postForm("/userDetail?update", user))
+    	mockMvc.perform((MockMvcRequestBuilderUtils.postForm("/userDetail?update", form))
     			//postの際はつける
     			.with(SecurityMockMvcRequestPostProcessors.csrf()))
     			
